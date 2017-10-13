@@ -5,13 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Querier.Models;
+using Microsoft.AspNetCore.Authorization;
 
+/*HomeController is the default controler that the program goes to.
+ Every controller should have an accompanying views folder with the same
+ name as the *Controller that you named this file, except it should only be
+ called * without the Controller part.*/
 namespace Querier.Controllers
 {
     public class HomeController : Controller
     {
+        /*Index is the default function that is called unless otherwise specified*/
+        [Authorize]
         public IActionResult Index()
         {
+            //View will call the cshtml file that is found under Views/Home folder, index is the default file it will call.
             return View();
         }
 

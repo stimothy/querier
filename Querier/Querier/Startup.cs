@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Querier.Models.Login;
+using Querier.Models;
 
 namespace Querier
 {
@@ -21,6 +25,13 @@ namespace Querier
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Added Entity Framework
+            services.AddDbContext<LoginDatabase>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Login"));
+
+            //Added Identity Framework
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<LoginDatabase>();
+
+            //Added MVC Framework
             services.AddMvc();
         }
 
@@ -37,8 +48,12 @@ namespace Querier
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseIdentity();              //NOTE: Research newer version of this include statement.
+
+            //This allows linking to css, jquery, etc.
             app.UseStaticFiles();
 
+            //This is where you want the app to route you to when you load the app.
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
