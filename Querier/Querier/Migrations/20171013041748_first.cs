@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Querier.Migrations
 {
+    //this is the local database that I created to test stuff on.
     public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

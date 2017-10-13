@@ -16,9 +16,14 @@ namespace Querier.Controllers
     public class HomeController : Controller
     {
         /*Index is the default function that is called unless otherwise specified*/
-        [Authorize]
+        //[Authorize]           I couldn't get this to work, so I did an if statement instead.
         public IActionResult Index()
         {
+            //Check to see if the user is logged in.
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             //View will call the cshtml file that is found under Views/Home folder, index is the default file it will call.
             return View();
         }

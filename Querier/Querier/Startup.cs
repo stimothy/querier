@@ -25,7 +25,8 @@ namespace Querier
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Added Entity Framework
+            //Added Entity Framework 
+            //NOTE: Here is where we need to add the address of the Heroku Database.
             services.AddDbContext<LoginDatabase>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Login"));
 
             //Added Identity Framework
@@ -47,8 +48,8 @@ namespace Querier
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            app.UseIdentity();              //NOTE: Research newer version of this include statement.
+            //This allows authentication of users.
+            app.UseAuthentication();
 
             //This allows linking to css, jquery, etc.
             app.UseStaticFiles();

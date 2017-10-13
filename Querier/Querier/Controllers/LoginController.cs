@@ -22,20 +22,25 @@ namespace Querier.Controllers
             this.signInManager = signInManager;
         }
 
+        //For when the user requests the html for the register view.
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        //For when the user submits his request on the register view.
         [HttpPost]
         public async Task<IActionResult> Register(UserRegistration reg)
         {
             if (ModelState.IsValid)
             {
                 User user = new User { UserName = reg.username };
+
+                //Create an acount on the database.
                 IdentityResult result = await userManager.CreateAsync(user, reg.password);
 
+                //If it succeeds, log them in and redirect to home page.
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, false);
@@ -51,17 +56,20 @@ namespace Querier.Controllers
             return View();
         }
 
+        //For when the user requests the html for the Login view.
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        //For when the user submits his request on the Login view.
         [HttpPost]
         public async Task<IActionResult> Login(UserLogin login)
         {
             if (ModelState.IsValid)
             {
+                //Try to log the user in if successful redirect to home page.
                 var result = await signInManager.PasswordSignInAsync(login.username, login.password, false, false);
 
                 if (result.Succeeded)

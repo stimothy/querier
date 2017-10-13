@@ -10,6 +10,7 @@ using System;
 
 namespace Querier.Migrations
 {
+    //this is the local database that I tested stuff on.
     [DbContext(typeof(LoginDatabase))]
     partial class LoginDatabaseModelSnapshot : ModelSnapshot
     {
