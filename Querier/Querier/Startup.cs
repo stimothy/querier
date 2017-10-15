@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Querier.Models.Login;
+using Querier.Data;
 using Querier.Models;
+using Querier.Services;
 
 namespace Querier
 {
@@ -25,14 +26,16 @@ namespace Querier
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Added Entity Framework 
-            //NOTE: Here is where we need to add the address of the Heroku Database.
-            services.AddDbContext<LoginDatabase>(options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Login"));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //Added Identity Framework
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<LoginDatabase>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
-            //Added MVC Framework
+            // Add application services.
+            services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddMvc();
         }
 
@@ -43,18 +46,17 @@ namespace Querier
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                app.UseDatabaseErrorPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            //This allows authentication of users.
-            app.UseAuthentication();
 
-            //This allows linking to css, jquery, etc.
             app.UseStaticFiles();
 
-            //This is where you want the app to route you to when you load the app.
+            app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
