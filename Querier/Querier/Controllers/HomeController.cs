@@ -32,6 +32,12 @@ namespace Querier.Controllers
             return View();
         }
 
+        // [HttpGet]
+        public IActionResult GuestAccess()
+        {
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

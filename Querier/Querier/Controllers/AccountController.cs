@@ -430,7 +430,6 @@ namespace Querier.Controllers
             return View();
         }
 
-
         [HttpGet]
         public IActionResult AccessDenied()
         {
