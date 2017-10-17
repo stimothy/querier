@@ -10,3 +10,5 @@ C:\Users\steve\Documents\GitHub\querier\Querier\Querier\obj\Debug\netcoreapp2.0\
 C:\Users\steve\Documents\GitHub\querier\Querier\Querier\obj\Debug\netcoreapp2.0\Querier.dll
 C:\Users\steve\Documents\GitHub\querier\Querier\Querier\obj\Debug\netcoreapp2.0\Querier.pdb
 C:\Users\steve\Documents\GitHub\querier\Querier\Querier\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\steve\Documents\GitHub\querier\Querier\Querier\obj\Debug\netcoreapp2.0\Querier.Properties.Resources.resources
+C:\Users\steve\Documents\GitHub\querier\Querier\Querier\obj\Debug\netcoreapp2.0\Querier.csproj.GenerateResource.Cache
