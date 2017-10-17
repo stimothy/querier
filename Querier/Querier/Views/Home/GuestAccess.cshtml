@@ -1,24 +1,23 @@
 ﻿@{
     ViewData["Title"] = "Guest Access";
 }
+<div class="container-fluid">
+    <h2>@ViewData["Title"]</h2>
+    <form class="navbar-form no-margin no-padding" role="search">
+        <button type="button" class="btn btn-primary">Add Query</button>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+</div>
 
-<h2>@ViewData["Title"]</h2>
-
-<div class="container">
+<div class="container-fluid">
     <table class="table table-fixed">
         <thead>
             <tr>
                 <th class="col-xs-3">Quiz Name</th>
                 <th class="col-xs-3">Description</th>
-                <th class="col-xs-6">Options</th>
-                <th class="col-xs-8">
-                    <form class="navbar-form no-margin" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                    </form>
-                </th>
-                <th class="col-xs-8"><button type="button" class="btn btn-primary">Add Query</button></th>
+                <th class="col-xs-6">Options</th>                    
             </tr>
         </thead>
         <tbody>
