@@ -53,6 +53,11 @@
     background-color: lightsteelblue;
 }
 
+.branded {
+    background-color: mediumpurple;
+    color: white;
+}
+
 .table-fixed {
     width: 100%;
     background-color: #f3f3f3;

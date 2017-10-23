@@ -38,6 +38,8 @@ namespace Querier
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            //services.AddWebSocketManager();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +66,8 @@ namespace Querier
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
+            app.UseWebSockets();
         }
     }
 }
