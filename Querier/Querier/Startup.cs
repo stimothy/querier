@@ -68,6 +68,17 @@ namespace Querier
             });
             
             app.UseWebSockets();
+            app.Use(async (http, next) =>
+            {
+                if (http.WebSockets.IsWebSocketRequest)
+                {
+                    //Handle WebSocket Requests here.
+                }
+                else
+                {
+                    await next();
+                }
+            });
         }
     }
 }

@@ -54,6 +54,8 @@
 }
 
 .branded {
+    margin: 3px, 3px, 3px, 3px;
+    padding: 3px, 3px, 3px, 3px;
     background-color: mediumpurple;
     color: white;
 }
