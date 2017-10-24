@@ -31,9 +31,18 @@ namespace Querier.Controllers
 
             return View();
         }
-
-        // [HttpGet]
+                
         public IActionResult GuestAccess()
+        {
+            return View();
+        }
+
+        public IActionResult ManageQuery()
+        {
+            return View();
+        }
+
+        public IActionResult ManageQuestion()
         {
             return View();
         }

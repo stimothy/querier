@@ -1,10 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Guest Access";
+    ViewData["Title"] = "Manage Question";
 }
+
 <div class="container-fluid">
     <h2>@ViewData["Title"]</h2>
     <form class="navbar-form no-margin no-padding" role="search">
-        <button type="button" class="btn btn-primary">Add Query</button>
+        <button type="button" class="btn btn-primary">Add Answer</button>
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Search">
         </div>
@@ -15,27 +16,25 @@
     <table class="table table-fixed">
         <thead>
             <tr>
-                <th class="col-xs-3">Query Name</th>
-                <th class="col-xs-3">Description</th>
-                <th class="col-xs-6">Options</th>                    
+                <th class="col-xs-3">Answer Number</th>
+                <th class="col-xs-3">Answer</th>
+                <th class="col-xs-6">Options</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="col-xs-3">Query 1</td>
-                <td class="col-xs-3">This is a test query. </td>
+                <td class="col-xs-3">#1</td>
+                <td class="col-xs-3">This is a test answer. </td>
                 <td class="col-xs-6">
                     <button type="button" class="btn btn-info">Edit</button>
-                    <button type="button" class="btn btn-success">Publish</button>
                     <button type="button" class="btn btn-danger">Delete</button>
                 </td>
             </tr>
             <tr>
-                <td class="col-xs-3">Query 2</td>
-                <td class="col-xs-3">This is another test query.</td>
+                <td class="col-xs-3">#2</td>
+                <td class="col-xs-3">This is another test answer.</td>
                 <td class="col-xs-6">
                     <button type="button" class="btn btn-info">Edit</button>
-                    <button type="button" class="btn btn-warning">Published</button>
                     <button type="button" class="btn btn-danger">Delete</button>
                 </td>
             </tr>
