@@ -40,16 +40,11 @@ namespace Querier.Controllers
             }
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public IActionResult Delete(int queryID)
-        { 
-            var deletedQuery = QueryList.FirstOrDefault(x => x.QueryID == queryID);
-            return View(deletedQuery);
-        }
-        [HttpDelete]
-        public IActionResult Delete(ManageQueryModel deletedQuery)
+
+        [HttpPost]
+        public IActionResult Create()
         {
-            QueryList.Remove(deletedQuery);
+            
             return RedirectToAction("Index");
         }
 
