@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Querier", "Querier\Querier.csproj", "{F5E06D9A-6D03-47D2-8341-EE38E6DE24DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Querier", "Querier\Querier.csproj", "{F5E06D9A-6D03-47D2-8341-EE38E6DE24DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager", "DataManager\DataManager.csproj", "{F43CA50E-C310-4915-BE09-09F5567B202D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F5E06D9A-6D03-47D2-8341-EE38E6DE24DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E06D9A-6D03-47D2-8341-EE38E6DE24DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5E06D9A-6D03-47D2-8341-EE38E6DE24DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43CA50E-C310-4915-BE09-09F5567B202D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43CA50E-C310-4915-BE09-09F5567B202D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43CA50E-C310-4915-BE09-09F5567B202D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43CA50E-C310-4915-BE09-09F5567B202D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
