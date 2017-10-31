@@ -4,22 +4,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Querier.Models;
+using Microsoft.AspNetCore.Identity;
+using DataManager;
+using Microsoft.Extensions.DependencyInjection;
+using System.Security.Principal;
+using System.Security.Permissions;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Querier.Controllers
 {
+
     public class QueryController : Controller
     {
-        IList<ManageQueryModel> QueryList = new List<ManageQueryModel>
-        {
-                new ManageQueryModel() {QueryName = "test1", QueryID = 1 },
-                new ManageQueryModel() {QueryName = "test2", QueryID = 2}
-        };
+        //IList<ManageQueryModel> QueryList = new List<ManageQueryModel>
+        //{
+        //        new ManageQueryModel() {QueryName = "test1", QueryID = 1 },
+        //        new ManageQueryModel() {QueryName = "test2", QueryID = 2}
+        //};
+
+
+        string Login = "login";
+
+        string userID = UserData.GetUserID(Login);
+
+        IList<ManageQueryModel> QueryList = DataManager.UserData.GetQueries(userID);
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View(QueryList);
+            return View();
         }
         [HttpGet]
         public IActionResult Edit(int queryID)

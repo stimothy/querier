@@ -23,6 +23,6 @@ namespace Querier.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<Querier.Models.ManageQueryModel> ManageQueryModel { get; set; }
+        public DbSet<Querier.Models.ManageUserModel> ManageQueryModel { get; set; }
     }
 }
