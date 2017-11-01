@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace DataManager
 {
     public class Query
     {
+        [Key]
         public int UserID;
         public int Number;
         public string Name { get; set; }

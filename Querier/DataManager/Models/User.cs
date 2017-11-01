@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DataManager
 {
     public class User
     {
+        [Key]
         public string LoginID { get; set; }
         public int UserID { get; set; }
 
