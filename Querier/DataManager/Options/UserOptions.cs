@@ -17,5 +17,13 @@ namespace DataManager
             user.Queries = UserData.GetQueries(user.UserID);
             return user;
         }
+
+        public static User DeleteQuery(User user, int number)
+        {
+            Query query = QueryData.Get(user.UserID, number);
+            QueryData.Delete(query);
+            user.Queries = UserData.GetQueries(user.UserID);
+            return user;
+        }
     }
 }
