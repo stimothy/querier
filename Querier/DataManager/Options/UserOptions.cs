@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataManager.Options
+namespace DataManager
 {
     public static class UserOptions
     {
@@ -14,6 +14,14 @@ namespace DataManager.Options
         public static User AddQuery(User user)
         {
             QueryData.Add(user.UserID);
+            user.Queries = UserData.GetQueries(user.UserID);
+            return user;
+        }
+
+        public static User DeleteQuery(User user, int number)
+        {
+            Query query = QueryData.Get(user.UserID, number);
+            QueryData.Delete(query);
             user.Queries = UserData.GetQueries(user.UserID);
             return user;
         }
