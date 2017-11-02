@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DataManager.Data
+namespace DataManager
 {
     public static class AnswerData
     {

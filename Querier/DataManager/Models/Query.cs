@@ -10,7 +10,7 @@ namespace DataManager
         public int Number;
         public string Name { get; set; }
 
-        List<Question> Questions;
+        public List<Question> Questions;
 
         public Query()
         {
