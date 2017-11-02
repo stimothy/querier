@@ -10,7 +10,7 @@ namespace DataManager
         public static int GetUserID(string loginID)
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.UserIDGet", SqlHelper.GetConnection());
-            sqlCmd.Parameters.Add(new SqlParameter("@LoginID", SqlDbType.Int)).Value = loginID;
+            sqlCmd.Parameters.Add(new SqlParameter("@LoginID", SqlDbType.VarChar)).Value = loginID;
 
             return SqlHelper.ScalarExecute(sqlCmd);
         }
