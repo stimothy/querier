@@ -1,31 +1,27 @@
-﻿using DataManager;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data;
 
-namespace Querier.Models
+namespace DataManager
 {
-    
-    public class ManageQuestionModel
+    public class Query
     {
+        [Key]
         public int UserID;
         public int Number;
         public string Name { get; set; }
 
         List<Question> Questions;
 
-        public void Query()
+        public Query()
         {
             UserID = 0;
             Number = 0;
             Questions = new List<Question>();
         }
 
-        public void Query(System.Data.DataRow dr)
+        public Query(DataRow dr)
         {
             if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
