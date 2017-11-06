@@ -24,12 +24,18 @@ namespace DataManager
 
         public Question(DataRow dr)
         {
-            if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
-            if (dr["queryNumber"] != null) QueryNumber = int.Parse(dr["queryNumber"].ToString());
+            bool IsFullLoad = (dr.Table.Columns.Contains("userID"));
+
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
             if (dr["name"] != null) Name = dr["name"].ToString();
 
-            Answers = QuestionData.GetAnswers(UserID, QueryNumber, Number);
+            if (IsFullLoad)
+            {
+                if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
+                if (dr["queryNumber"] != null) QueryNumber = int.Parse(dr["queryNumber"].ToString());
+
+                Answers = QuestionData.GetAnswers(UserID, QueryNumber, Number); 
+            }
         }
 
     }
