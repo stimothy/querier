@@ -37,13 +37,10 @@ namespace Querier.Controllers
         }
         public IActionResult Create()
         {
-            //string loginID = User.Identity.Name.ToString();
-            //User user = DataManager.UserOptions.GetUser(loginID);
-            //User newquery = DataManager.UserOptions.AddQuery(user);
 
             return View();
         }
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         public IActionResult Create(Query query)
         {
             string loginID = User.Identity.Name.ToString();
@@ -58,22 +55,18 @@ namespace Querier.Controllers
                 return View(query);
             }
         }
-        public IActionResult Delete(int id)
+        [Authorize]
+        public IActionResult DeleteQuery(int queryNumber, int userId)
         {
-            string loginID = User.Identity.Name.ToString();
-            User user = DataManager.UserOptions.GetUser(loginID);
-            Query query = DataManager.QueryData.Get(user.UserID, id);
-            return View(query);
-        }
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            string loginID = User.Identity.Name.ToString();
-            User user = DataManager.UserOptions.GetUser(loginID);
-            Query query = DataManager.QueryData.Get(user.UserID, id);
-            DataManager.UserOptions.DeleteQuery(user, id);
-            return RedirectToAction("Index");
+            var username = User.Identity.Name.ToString();
+            var user = DataManager.UserOptions.GetUser(username);
+            var query = DataManager.QueryOptions.Load(user, queryNumber);
+
+            DataManager.UserOptions.DeleteQuery(user, queryNumber);
+
+            user = DataManager.UserOptions.GetUser(username);
+
+            return View("LoadUser", user);
         }
         //[HttpGet]
         //public IActionResult Edit(int queryID)

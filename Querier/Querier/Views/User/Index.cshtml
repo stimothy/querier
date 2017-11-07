@@ -1,11 +1,11 @@
 ﻿@model DataManager.User
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manage Queries";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Manage Queries</h2>
 
 <div>
     <h4>User</h4>
@@ -31,8 +31,6 @@
             <th></th>
         </tr>
     </thead>
-    @if (Model.Queries[0] != null)
-    {
     @foreach (var query in Model.Queries)
     {
         <tbody>
@@ -40,13 +38,12 @@
                 <th>@query.Number</th>
                 <th>@query.Name</th>
                 <th>
-                    <a asp-action="Edit" asp-route-id="@Model.UserID" class="btn btn-info">Edit</a>
+                    <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuery", "User", new { userID = Model.UserID, queryNumber  = query.Number})'">Delete</button>
                     <a asp-action="Publish" asp-route-id="@Model.LoginID" class="btn btn-warning">Publish</a>
                     <a asp-action="Delete" asp-route-id="@Model.LoginID" class="btn btn-danger">Delete</a>
                 </th>
             </tr>
         </tbody>
-    }
     }
     </table>
 </div>
