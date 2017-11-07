@@ -64,7 +64,7 @@ namespace DataManager
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QuestionDelete", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = question.UserID;
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = question.QueryNumber;
-            sqlCmd.Parameters.Add(new SqlParameter("@Number", SqlDbType.Int)).Value = question.Number;
+            sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = question.Number;
 
             SqlHelper.Execute(sqlCmd);
         }
