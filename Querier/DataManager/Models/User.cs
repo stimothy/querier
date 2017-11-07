@@ -22,10 +22,13 @@ namespace DataManager
 
         public User(string loginID)
         {
+            bool IsFullLoad = true;
+
             LoginID = loginID;
             UserID = UserData.GetUserID(loginID);
 
-            Queries = UserData.GetQueries(UserID);
+            if (IsFullLoad) 
+                Queries = UserData.GetQueries(UserID);
         }
     }
 }

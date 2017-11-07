@@ -20,7 +20,7 @@ namespace DataManager
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryGet", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
-            sqlCmd.Parameters.Add(new SqlParameter("@Number", SqlDbType.Int)).Value = number;
+            sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = number;
 
             DataTable dt = SqlHelper.TableExecute(sqlCmd);
 
@@ -33,6 +33,7 @@ namespace DataManager
 
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryQuestionsGet", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
+            sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = number;
 
             DataTable dt = SqlHelper.TableExecute(sqlCmd);
 

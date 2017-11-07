@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DataManager.Question;
+
+@{
     ViewData["Title"] = "Manage Question";
 }
 
@@ -23,8 +25,8 @@
         </thead>
         <tbody>
             <tr>
-                <td class="col-xs-3">#1</td>
-                <td class="col-xs-3">This is a test answer. </td>
+                <td class="col-xs-3">@Html.DisplayFor(model => model.Answers[0].Number)</td>
+                <td class="col-xs-3">@Html.DisplayFor(model => model.Answers[0].Name)</td>
                 <td class="col-xs-6">
                     <button type="button" class="btn btn-info">Edit</button>
                     <button type="button" class="btn btn-danger">Delete</button>
