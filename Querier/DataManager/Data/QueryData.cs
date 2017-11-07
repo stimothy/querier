@@ -8,10 +8,11 @@ namespace DataManager
 {
     public static class QueryData
     {
-        public static int Add(int userID)
+        public static int Add(int userID, string name = null)
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.UserQueryInsert", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
+            if (name != null) sqlCmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar)).Value = name;
 
             return SqlHelper.ScalarExecute(sqlCmd);
         }

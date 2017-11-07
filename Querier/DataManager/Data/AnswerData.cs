@@ -6,12 +6,13 @@ namespace DataManager
 {
     public static class AnswerData
     {
-        public static void Add(int userID, int queryNumber, int questionNumber)
+        public static void Add(int userID, int queryNumber, int questionNumber, string name = null)
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QuestionAnswerInsert", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = queryNumber;
             sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = questionNumber;
+            if (name != null) sqlCmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar)).Value = name;
 
             SqlHelper.Execute(sqlCmd);
         }
@@ -48,7 +49,7 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = answer.UserID;
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = answer.QueryNumber;
             sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = answer.QuestionNumber;
-            sqlCmd.Parameters.Add(new SqlParameter("@Number", SqlDbType.Int)).Value = answer.Number;
+            sqlCmd.Parameters.Add(new SqlParameter("@AnswerNumber", SqlDbType.Int)).Value = answer.Number;
 
             SqlHelper.Execute(sqlCmd);
         }
