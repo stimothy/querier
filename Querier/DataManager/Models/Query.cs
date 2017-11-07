@@ -12,7 +12,7 @@ namespace DataManager
         public int Number;
         public string Name { get; set; }
 
-        List<Question> Questions;
+        public List<Question> Questions;
 
         public Query()
         {
@@ -23,11 +23,16 @@ namespace DataManager
 
         public Query(DataRow dr)
         {
-            if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
+            bool IsFullLoad = (dr.Table.Columns.Contains("userID"));
+
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
             if (dr["name"] != null) Name = dr["name"].ToString();
 
-            Questions = QueryData.GetQuestions(UserID, Number);
+            if (IsFullLoad)
+            {
+                if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
+                Questions = QueryData.GetQuestions(UserID, Number); 
+            }
         }
 
     }

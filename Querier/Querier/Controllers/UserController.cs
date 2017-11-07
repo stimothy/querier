@@ -12,9 +12,12 @@ using System.Security.Principal;
 using System.Security.Permissions;
 using System.Dynamic;
 using Microsoft.AspNetCore.Authorization;
+<<<<<<< HEAD
 using Querier.Services;
 using Microsoft.Extensions.Logging;
 using System.Text.Encodings.Web;
+=======
+>>>>>>> origin/master
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,15 +28,27 @@ namespace Querier.Controllers
 
     public class UserController : Controller
     {
+<<<<<<< HEAD
+=======
+        public object FormsAuthentication { get; private set; }
+>>>>>>> origin/master
 
 
         //IList<ManageUserModel> QueryList = DataManager.UserData.GetQueries(userID);
         // GET: /<controller>/
         [Authorize]
         public IActionResult Index()
+<<<<<<< HEAD
         {
             string name = User.Identity.Name.ToString();
             User user = DataManager.UserOptions.GetUser(name);
+=======
+        { 
+            string loginID = User.Identity.Name.ToString();
+            User user = DataManager.UserOptions.GetUser(loginID);
+            dynamic model = new ExpandoObject();
+            model.User = DataManager.UserOptions.GetUser(loginID);
+>>>>>>> origin/master
             
             return View(user);
         }
