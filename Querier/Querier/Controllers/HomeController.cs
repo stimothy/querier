@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Querier.Models;
 using Microsoft.AspNetCore.Authorization;
+using DataManager;
 
 namespace Querier.Controllers
 {
@@ -34,17 +35,23 @@ namespace Querier.Controllers
                 
         public IActionResult GuestAccess()
         {
-            return View();
+            User user = UserOptions.GetUser("TEST@TEST.COM");
+            return View(user);
         }
 
         public IActionResult ManageQuery()
         {
-            return View();
+            User user = UserOptions.GetUser("TEST@TEST.COM");
+            Query query = QueryOptions.Load(user, 1);
+            return View(query);
         }
 
         public IActionResult ManageQuestion()
         {
-            return View();
+            User user = UserOptions.GetUser("TEST@TEST.COM");
+            Query query = QueryOptions.Load(user, 1);
+            Question question = QuestionOptions.Load(query, 1);
+            return View(question);
         }
 
         public IActionResult Error()
