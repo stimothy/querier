@@ -20,6 +20,33 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.LoginID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Add Query</a>
+    </p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Query ID</th>
+            <th>Query Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    @if (Model.Queries[0] != null)
+    {
+    @foreach (var query in Model.Queries)
+    {
+        <tbody>
+            <tr>
+                <th>@query.Number</th>
+                <th>@query.Name</th>
+                <th>
+                    <a asp-action="Edit" asp-route-id="@Model.UserID" class="btn btn-info">Edit</a>
+                    <a asp-action="Publish" asp-route-id="@Model.LoginID" class="btn btn-warning">Publish</a>
+                    <a asp-action="Delete" asp-route-id="@Model.LoginID" class="btn btn-danger">Delete</a>
+                </th>
+            </tr>
+        </tbody>
+    }
+    }
+    </table>
 </div>

@@ -12,6 +12,7 @@ using System.Security.Principal;
 using System.Security.Permissions;
 using System.Dynamic;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -31,10 +32,48 @@ namespace Querier.Controllers
         {
             string loginID = User.Identity.Name.ToString();
             User user = DataManager.UserOptions.GetUser(loginID);
-            dynamic model = new ExpandoObject();
-            model.User = DataManager.UserOptions.GetUser(loginID);
 
             return View(user);
+        }
+        public IActionResult Create()
+        {
+            //string loginID = User.Identity.Name.ToString();
+            //User user = DataManager.UserOptions.GetUser(loginID);
+            //User newquery = DataManager.UserOptions.AddQuery(user);
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Query query)
+        {
+            string loginID = User.Identity.Name.ToString();
+            User user = DataManager.UserOptions.GetUser(loginID);
+            User newquery = DataManager.UserOptions.AddQuery(user);
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(query);
+            }
+        }
+        public IActionResult Delete(int id)
+        {
+            string loginID = User.Identity.Name.ToString();
+            User user = DataManager.UserOptions.GetUser(loginID);
+            Query query = DataManager.QueryData.Get(user.UserID, id);
+            return View(query);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            string loginID = User.Identity.Name.ToString();
+            User user = DataManager.UserOptions.GetUser(loginID);
+            Query query = DataManager.QueryData.Get(user.UserID, id);
+            DataManager.UserOptions.DeleteQuery(user, id);
+            return RedirectToAction("Index");
         }
         //[HttpGet]
         //public IActionResult Edit(int queryID)
