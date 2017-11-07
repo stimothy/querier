@@ -1,0 +1,40 @@
+﻿@model DataManager.Query;
+
+@{
+    ViewData["Title"] = "Manage Query";
+}
+
+<div class="container-fluid">
+    <h2>@ViewData["Title"]</h2>
+    <form class="navbar-form no-margin no-padding" role="search">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InsertQuestion", "Query", new { queryID = Model.Number})'">Add Question</button>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-fixed">
+        <thead>
+            <tr>
+                <th class="col-xs-3">Question Number</th>
+                <th class="col-xs-3">Question</th>
+                <th class="col-xs-6">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var question in Model.Questions)
+            {
+                <tr>
+                    <td class="col-xs-3">@Html.DisplayFor(model => question.Number)</td>
+                    <td class="col-xs-3">@Html.DisplayFor(model => question.Name)</td>
+                    <td class="col-xs-6">
+                        <button type="button" class="btn btn-info" name="edit">Edit</button>
+                        <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuestion", "Query", new { queryID = Model.Number, questionNumber  = question.Number})'">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

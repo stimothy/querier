@@ -37,14 +37,7 @@ namespace Querier.Controllers
         {
             User user = UserOptions.GetUser("TEST@TEST.COM");
             return View(user);
-        }
-
-        public IActionResult ManageQuery()
-        {
-            User user = UserOptions.GetUser("TEST@TEST.COM");
-            Query query = QueryOptions.Load(user, 1);
-            return View(query);
-        }
+        }        
 
         public IActionResult ManageQuestion()
         {
