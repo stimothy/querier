@@ -11,6 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Security.Principal;
 using System.Security.Permissions;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
+using Querier.Services;
+using Microsoft.Extensions.Logging;
+using System.Text.Encodings.Web;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,19 +22,18 @@ using System.Dynamic;
 namespace Querier.Controllers
 {
 
+
     public class UserController : Controller
     {
-            
+
 
         //IList<ManageUserModel> QueryList = DataManager.UserData.GetQueries(userID);
         // GET: /<controller>/
+        [Authorize]
         public IActionResult Index()
         {
-            object cookie = HttpContext.Request.Cookies[".AspNetCore.Identity.Application"];
-            string loginID = User.Identity.ToString();
-            User user = DataManager.UserOptions.GetUser(loginID);
-            dynamic model = new ExpandoObject();
-            model.User = DataManager.UserOptions.GetUser(loginID);
+            string name = User.Identity.Name.ToString();
+            User user = DataManager.UserOptions.GetUser(name);
             
             return View(user);
         }
