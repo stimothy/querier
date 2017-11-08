@@ -12,6 +12,7 @@ using System.Security.Principal;
 using System.Security.Permissions;
 using System.Dynamic;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -28,13 +29,42 @@ namespace Querier.Controllers
         // GET: /<controller>/
         [Authorize]
         public IActionResult Index()
-        { 
+        {
             string loginID = User.Identity.Name.ToString();
             User user = DataManager.UserOptions.GetUser(loginID);
-            dynamic model = new ExpandoObject();
-            model.User = DataManager.UserOptions.GetUser(loginID);
-            
+
             return View(user);
+        }
+        [Authorize]
+        public IActionResult Create(int userID)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = DataManager.UserOptions.GetUser(username);
+
+            DataManager.UserOptions.AddQuery(user);
+
+            user = DataManager.UserOptions.GetUser(username);
+
+            var queryCount = user.Queries.Count;
+            var queryid = user.Queries.ElementAt<Query>(queryCount - 1).Number;
+            var query = DataManager.QueryOptions.Load(user, queryid);
+
+            var queryID = query.Number;
+
+            return RedirectToAction("ManageQuery","Query", queryID);
+        }
+        [Authorize]
+        public IActionResult DeleteQuery(int queryNumber, int userId)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = DataManager.UserOptions.GetUser(username);
+            var query = DataManager.QueryOptions.Load(user, queryNumber);
+
+            DataManager.UserOptions.DeleteQuery(user, queryNumber);
+
+            user = DataManager.UserOptions.GetUser(username);
+
+            return View("Index", user);
         }
         //[HttpGet]
         //public IActionResult Edit(int queryID)
@@ -59,7 +89,7 @@ namespace Querier.Controllers
         //[HttpPost]
         //public IActionResult Create()
         //{
-            
+
         //    return RedirectToAction("Index");
         //}
 
