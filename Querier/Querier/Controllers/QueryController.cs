@@ -7,11 +7,12 @@ namespace Querier.Controllers
     public class QueryController : Controller
     {
         [Authorize]
-        public IActionResult ManageQuery()
+        public IActionResult ManageQuery(int queryID)
         {
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
-            Query query = QueryOptions.Load(user, 1);
+            var query = QueryOptions.Load(user, queryID);
+
             return View("LoadQuery", query);
         }
 
@@ -30,8 +31,6 @@ namespace Querier.Controllers
 
             QueryOptions.DeleteQuestion(query, questionNumber);
 
-            query = QueryOptions.Load(user, queryID);
-
             return View("LoadQuery", query);
         }
 
@@ -43,8 +42,6 @@ namespace Querier.Controllers
             var query = QueryOptions.Load(user, queryID);
 
             QueryOptions.AddQuestion(query);
-
-            query = QueryOptions.Load(user, queryID);
 
             return View("LoadQuery", query);
         }

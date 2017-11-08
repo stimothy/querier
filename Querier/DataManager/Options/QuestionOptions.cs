@@ -16,11 +16,10 @@ namespace DataManager
             QuestionData.Save(question);
         }
 
-        public static Question AddAnswer(Question question)
+        public static void AddAnswer(Question question)
         {
             AnswerData.Add(question.UserID, question.Number, question.Number);
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
-            return question;
         }
 
         public static Question DeleteAnswer(Question question, int number)
@@ -28,7 +27,6 @@ namespace DataManager
             Answer answer = AnswerData.Get(question.UserID, question.QueryNumber, question.Number, number);
             AnswerData.Delete(answer);
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
-            return question;
         }
     }
 }
