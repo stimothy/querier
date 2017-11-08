@@ -22,7 +22,7 @@ namespace DataManager
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
         }
 
-        public static Question DeleteAnswer(Question question, int number)
+        public static void DeleteAnswer(Question question, int number)
         {
             Answer answer = AnswerData.Get(question.UserID, question.QueryNumber, question.Number, number);
             AnswerData.Delete(answer);
