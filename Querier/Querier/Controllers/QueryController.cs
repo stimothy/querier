@@ -7,11 +7,11 @@ namespace Querier.Controllers
     public class QueryController : Controller
     {
         [Authorize]
-        public IActionResult ManageQuery()
+        public IActionResult ManageQuery(int queryID)
         {
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
-            Query query = QueryOptions.Load(user, 1);
+            Query query = QueryOptions.Load(user, queryID);
             return View("LoadQuery", query);
         }
 

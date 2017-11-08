@@ -35,25 +35,23 @@ namespace Querier.Controllers
 
             return View(user);
         }
-        public IActionResult Create()
+        [Authorize]
+        public IActionResult Create(int userID)
         {
+            var username = User.Identity.Name.ToString();
+            var user = DataManager.UserOptions.GetUser(username);
 
-            return View();
-        }
-        [HttpPost, ActionName("Create")]
-        public IActionResult Create(Query query)
-        {
-            string loginID = User.Identity.Name.ToString();
-            User user = DataManager.UserOptions.GetUser(loginID);
-            User newquery = DataManager.UserOptions.AddQuery(user);
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View(query);
-            }
+            DataManager.UserOptions.AddQuery(user);
+
+            user = DataManager.UserOptions.GetUser(username);
+
+            var queryCount = user.Queries.Count;
+            var queryid = user.Queries.ElementAt<Query>(queryCount - 1).Number;
+            var query = DataManager.QueryOptions.Load(user, queryid);
+
+            var queryID = query.Number;
+
+            return RedirectToAction("ManageQuery","Query", queryID);
         }
         [Authorize]
         public IActionResult DeleteQuery(int queryNumber, int userId)
@@ -66,7 +64,7 @@ namespace Querier.Controllers
 
             user = DataManager.UserOptions.GetUser(username);
 
-            return View("LoadUser", user);
+            return View("Index", user);
         }
         //[HttpGet]
         //public IActionResult Edit(int queryID)

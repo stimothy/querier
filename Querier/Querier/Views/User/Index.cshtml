@@ -6,22 +6,9 @@
 }
 
 <h2>Manage Queries</h2>
-
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-    </dl>
-</div>
 <div>
     <p>
-        <a asp-action="Create" class="btn btn-primary">Add Query</a>
+        <button type="button" class="btn btn-primary" name="edit" onclick="location.href='@Url.Action("Create", "User", new { userID = Model.UserID })'">Create Query</button>
     </p>
 <table class="table">
     <thead>
@@ -38,9 +25,9 @@
                 <th>@query.Number</th>
                 <th>@query.Name</th>
                 <th>
-                    <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuery", "User", new { userID = Model.UserID, queryNumber  = query.Number})'">Delete</button>
+                    <button type="button" class="btn btn-info" name="edit" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = query.Number })'">Edit</button>
                     <a asp-action="Publish" asp-route-id="@Model.LoginID" class="btn btn-warning">Publish</a>
-                    <a asp-action="Delete" asp-route-id="@Model.LoginID" class="btn btn-danger">Delete</a>
+                    <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuery", "User", new { userID = Model.UserID, queryNumber  = query.Number})'">Delete</button>
                 </th>
             </tr>
         </tbody>
