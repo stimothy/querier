@@ -1,0 +1,13 @@
+﻿@model DataManager.Answer;
+
+@{
+    ViewData["Title"] = "Manage Answer";
+}
+
+<div class="container-fluid">
+    <form >
+        @Html.DisplayNameFor(model => Model.Name): <input type="text" name="@Html.DisplayNameFor(model => Model.Name)" value="@Html.DisplayFor(model => Model.Name)" /><br>
+        @Html.DisplayNameFor(model => Model.Score): <input type="text" name="@Html.DisplayNameFor(model => Model.Score)" value="@Html.DisplayFor(model => Model.Score)" /><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
