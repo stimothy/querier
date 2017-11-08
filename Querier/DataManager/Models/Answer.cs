@@ -26,13 +26,13 @@ namespace DataManager
 
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
             if (dr["name"] != null) Name = dr["name"].ToString();
+            if (dr["score"] != null) Score = int.Parse(dr["score"].ToString());
 
             if (IsFullLoad)
             {
                 if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
                 if (dr["queryNumber"] != null) QueryNumber = int.Parse(dr["queryNumber"].ToString());
                 if (dr["questionNumber"] != null) QuestionNumber = int.Parse(dr["questionNumber"].ToString());
-                if (dr["score"] != null) Score = int.Parse(dr["score"].ToString()); 
             }
         }
 

@@ -1,0 +1,43 @@
+﻿@model DataManager.Question
+;
+
+@{
+    ViewData["Title"] = "Manage Question";
+}
+
+<div class="container-fluid">
+    <h2>@ViewData["Title"]</h2>
+    <form class="navbar-form no-margin no-padding" role="search">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InsertAnswer", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">Add Answer</button>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-fixed">
+        <thead>
+            <tr>
+                <th class="col-xs-3">Answer Number</th>
+                <th class="col-xs-3">Answer</th>
+                <th class="col-xs-3">Score</th>
+                <th class="col-xs-6">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var answer in Model.Answers)
+            {
+                <tr>
+                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Number)</td>
+                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Name)</td>
+                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Score)</td>
+                    <td class="col-xs-6">
+                        <button type="button" class="btn btn-info" name="edit">Edit</button>
+                        <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteAnswer", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number, answerNumber = answer.Number})'">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

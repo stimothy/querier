@@ -16,19 +16,17 @@ namespace DataManager
             QuestionData.Save(question);
         }
 
-        public static Question AddAnswer(Question question)
+        public static void AddAnswer(Question question)
         {
             AnswerData.Add(question.UserID, question.Number, question.Number);
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
-            return question;
         }
 
-        public static Question DeleteQuestion(Question question, int number)
+        public static void DeleteAnswer(Question question, int number)
         {
             Answer answer = AnswerData.Get(question.UserID, question.QueryNumber, question.Number, number);
             AnswerData.Delete(answer);
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
-            return question;
         }
     }
 }
