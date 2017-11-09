@@ -10,7 +10,7 @@ namespace Querier.Controllers
         public object FormsAuthentication { get; private set; }
 
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(int userID)
         {
             string loginID = User.Identity.Name.ToString();
             User user = UserOptions.GetUser(loginID);

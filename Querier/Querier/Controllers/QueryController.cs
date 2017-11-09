@@ -49,5 +49,14 @@ namespace Querier.Controllers
 
             return RedirectToAction("LoadQuestion", "Question", question);
         }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult SaveQuery(Query query)
+        {
+            QueryOptions.Save(query);
+
+            return RedirectToAction("Index", "User", new { userID = query.UserID });
+        }
     }
 }
