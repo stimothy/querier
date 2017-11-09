@@ -5,10 +5,10 @@ namespace DataManager
 {
     public class Answer
     {
-        public int UserID;
-        public int QueryNumber;
-        public int QuestionNumber;
-        public int Number;
+        public int UserID { get; set; }
+        public int QueryNumber { get; set; }
+        public int QuestionNumber { get; set; }
+        public int Number { get; set; }
         public int Score { get; set; }
         public string Name { get; set; }
 
