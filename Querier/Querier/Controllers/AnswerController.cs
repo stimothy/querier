@@ -30,8 +30,7 @@ namespace Querier.Controllers
             return View("LoadAnswer", answer);
         }
 
-        [Authorize]
-        [HttpPost]
+        [Authorize][HttpPost]
         public IActionResult SaveAnswer(Answer answer)
         {
             AnswerOptions.Save(answer);

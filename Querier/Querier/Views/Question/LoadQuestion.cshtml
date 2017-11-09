@@ -1,12 +1,31 @@
 ﻿@model DataManager.Question
-;
 
 @{
-    ViewData["Title"] = "Manage Question";
+    ViewData["Title"] = Model.Name;
 }
 
 <div class="container-fluid">
     <h2>@ViewData["Title"]</h2>
+    @using (Html.BeginForm("SaveQuestion", "Question", FormMethod.Post, Model))
+    {
+        <table cellpadding="0" cellspacing="0">
+            @Html.HiddenFor(model => Model.UserID)
+            @Html.HiddenFor(model => Model.QueryNumber)
+            @Html.HiddenFor(model => Model.Number)
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => Model.Name):
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => Model.Name)
+                </td>
+            </tr>
+        </table>
+        <input type="button" value="Back" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = Model.QueryNumber })'">
+        <input type="submit" value="Update" />
+    }
+</div>
+<div class="container-fluid">
     <form class="navbar-form no-margin no-padding" role="search">
         <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InsertAnswer", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">Add Answer</button>
         <div class="form-group">
