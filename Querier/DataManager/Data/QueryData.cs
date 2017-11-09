@@ -50,7 +50,7 @@ namespace DataManager
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryUpdate", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = query.UserID;
-            sqlCmd.Parameters.Add(new SqlParameter("@Number", SqlDbType.Int)).Value = query.Number;
+            sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = query.Number;
             sqlCmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar)).Value = query.Name;
 
             SqlHelper.Execute(sqlCmd);

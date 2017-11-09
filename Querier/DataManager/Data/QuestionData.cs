@@ -8,11 +8,12 @@ namespace DataManager
 {
     public static class QuestionData
     {
-        public static void Add(int userID, int queryNumber)
+        public static void Add(int userID, int queryNumber, string name = null)
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryQuestionInsert", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = queryNumber;
+            if (name != null) sqlCmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar)).Value = name;
 
             SqlHelper.Execute(sqlCmd);
         }
