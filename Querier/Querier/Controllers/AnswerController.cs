@@ -35,7 +35,7 @@ namespace Querier.Controllers
         {
             AnswerOptions.Save(answer);
 
-            return this.RedirectToAction("LoadQuestion", "Question", new { queryNumber = answer.QueryNumber, questionNumber = answer.QuestionNumber });
+            return RedirectToAction("ManageQuestion", "Question", new { queryNumber = answer.QueryNumber, questionNumber = answer.QuestionNumber });
         }
     }
 }
