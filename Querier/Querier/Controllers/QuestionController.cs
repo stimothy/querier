@@ -17,7 +17,7 @@ namespace Querier.Controllers
             return View("LoadQuestion", question);
         }
 
-        [Authorize]
+        [Authorize][HttpGet]
         public IActionResult LoadQuestion(int queryNumber, int questionNumber)
         {
             var username = User.Identity.Name.ToString();
@@ -25,6 +25,14 @@ namespace Querier.Controllers
             Query query = QueryOptions.Load(user, queryNumber);
             Question question = QuestionOptions.Load(query, questionNumber);
             return View("LoadQuestion", question);
+        }
+
+        [Authorize][HttpPost]
+        public IActionResult SaveQuestion(Question question)
+        {
+            QuestionOptions.Save(question);
+
+            return this.RedirectToAction("ManageQuery", "Query", new { queryID = question.QueryNumber });
         }
 
         [Authorize]
