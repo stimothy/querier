@@ -1,6 +1,7 @@
 ﻿using DataManager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Querier.Controllers
 {
@@ -43,7 +44,10 @@ namespace Querier.Controllers
 
             QueryOptions.AddQuestion(query);
 
-            return View("LoadQuery", query);
+            var questionNumber = query.Questions.Max(x => x.Number);
+            var question = QuestionOptions.Load(query, questionNumber);
+
+            return RedirectToAction("LoadQuestion", "Question", question);
         }
     }
 }
