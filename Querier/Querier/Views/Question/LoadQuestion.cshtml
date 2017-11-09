@@ -33,7 +33,7 @@
                     <td class="col-xs-3">@Html.DisplayFor(model => answer.Name)</td>
                     <td class="col-xs-3">@Html.DisplayFor(model => answer.Score)</td>
                     <td class="col-xs-6">
-                        <button type="button" class="btn btn-info" name="edit">Edit</button>
+                        <button type="button" class="btn btn-info" name="edit" onclick="location.href='@Url.Action("LoadAnswer", "Answer", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number, answerNumber = answer.Number})'">Edit</button>
                         <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteAnswer", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number, answerNumber = answer.Number})'">Delete</button>
                     </td>
                 </tr>
