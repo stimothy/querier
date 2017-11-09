@@ -5,9 +5,31 @@
 }
 
 <div class="container-fluid">
-    <form >
-        @Html.DisplayNameFor(model => Model.Name): <input type="text" name="@Html.DisplayNameFor(model => Model.Name)" value="@Html.DisplayFor(model => Model.Name)" /><br>
-        @Html.DisplayNameFor(model => Model.Score): <input type="text" name="@Html.DisplayNameFor(model => Model.Score)" value="@Html.DisplayFor(model => Model.Score)" /><br>
-        <input type="submit" value="Submit">
-    </form>
+    @using (Html.BeginForm("SaveAnswer", "Answer", FormMethod.Post, Model))
+    {
+        <table cellpadding="0" cellspacing="0">
+            @Html.HiddenFor(model => Model.UserID)
+            @Html.HiddenFor(model => Model.QueryNumber)
+            @Html.HiddenFor(model => Model.QuestionNumber)
+            @Html.HiddenFor(model => Model.Number)
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => Model.Name):
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => Model.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => Model.Score):
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => Model.Score)
+                </td>
+            </tr>
+        </table>
+        <input type="button" value="Cancel" onclick="location.href='@Url.Action("LoadQuestion", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.QuestionNumber })'">
+        <input type="submit" value="Save" /> 
+    }
 </div>

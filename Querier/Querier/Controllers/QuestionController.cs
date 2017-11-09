@@ -1,6 +1,7 @@
 ﻿using DataManager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Querier.Controllers
 {
@@ -13,6 +14,16 @@ namespace Querier.Controllers
             var user = UserOptions.GetUser(username);
             Query query = QueryOptions.Load(user, 1);
             Question question = QuestionOptions.Load(query, 1);
+            return View("LoadQuestion", question);
+        }
+
+        [Authorize]
+        public IActionResult LoadQuestion(int queryNumber, int questionNumber)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            Query query = QueryOptions.Load(user, queryNumber);
+            Question question = QuestionOptions.Load(query, questionNumber);
             return View("LoadQuestion", question);
         }
 
@@ -39,7 +50,10 @@ namespace Querier.Controllers
 
             QuestionOptions.AddAnswer(question);
 
-            return View("LoadQuestion", question);
+            //question.Answers.Max(x => x.Number);
+
+            //return View("LoadQuestion", question);
+            return this.RedirectToAction("LoadAnswer", "Answer", new { queryNumber = question.QueryNumber, questionNumber = question.Number, answerNumber = question.Answers.Max(x => x.Number) });
         }
     }
 }
