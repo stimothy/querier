@@ -1,25 +1,36 @@
 ﻿@model DataManager.User
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manage Queries";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
+<h2>Manage Queries</h2>
 <div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.LoginID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <p>
+        <button type="button" class="btn btn-primary" name="edit" onclick="location.href='@Url.Action("Create", "User", new { userID = Model.UserID })'">Create Query</button>
+    </p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Query ID</th>
+            <th>Query Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var query in Model.Queries)
+    {
+        <tbody>
+            <tr>
+                <th>@query.Number</th>
+                <th>@query.Name</th>
+                <th>
+                    <button type="button" class="btn btn-info" name="edit" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = query.Number })'">Edit</button>
+                    <a asp-action="Publish" asp-route-id="@Model.LoginID" class="btn btn-warning">Publish</a>
+                    <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuery", "User", new { userID = Model.UserID, queryNumber  = query.Number})'">Delete</button>
+                </th>
+            </tr>
+        </tbody>
+    }
+    </table>
 </div>
