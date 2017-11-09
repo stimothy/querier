@@ -5,10 +5,10 @@ namespace DataManager
 {
     public class Answer
     {
-        public int UserID;
-        public int QueryNumber;
-        public int QuestionNumber;
-        public int Number;
+        public int UserID { get; set; }
+        public int QueryNumber { get; set; }
+        public int QuestionNumber { get; set; }
+        public int Number { get; set; }
         public int Score { get; set; }
         public string Name { get; set; }
 
@@ -26,13 +26,13 @@ namespace DataManager
 
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
             if (dr["name"] != null) Name = dr["name"].ToString();
+            if (dr["score"] != null) Score = int.Parse(dr["score"].ToString());
 
             if (IsFullLoad)
             {
                 if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
                 if (dr["queryNumber"] != null) QueryNumber = int.Parse(dr["queryNumber"].ToString());
                 if (dr["questionNumber"] != null) QuestionNumber = int.Parse(dr["questionNumber"].ToString());
-                if (dr["score"] != null) Score = int.Parse(dr["score"].ToString()); 
             }
         }
 

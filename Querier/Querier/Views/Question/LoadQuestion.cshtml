@@ -1,0 +1,62 @@
+﻿@model DataManager.Question
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container-fluid">
+    <h2>@ViewData["Title"]</h2>
+    @using (Html.BeginForm("SaveQuestion", "Question", FormMethod.Post, Model))
+    {
+        <table cellpadding="0" cellspacing="0">
+            @Html.HiddenFor(model => Model.UserID)
+            @Html.HiddenFor(model => Model.QueryNumber)
+            @Html.HiddenFor(model => Model.Number)
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => Model.Name):
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => Model.Name)
+                </td>
+            </tr>
+        </table>
+        <input type="button" value="Back" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = Model.QueryNumber })'">
+        <input type="submit" value="Update" />
+    }
+</div>
+<div class="container-fluid">
+    <form class="navbar-form no-margin no-padding" role="search">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InsertAnswer", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">Add Answer</button>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-fixed">
+        <thead>
+            <tr>
+                <th class="col-xs-3">Answer Number</th>
+                <th class="col-xs-3">Answer</th>
+                <th class="col-xs-3">Score</th>
+                <th class="col-xs-6">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var answer in Model.Answers)
+            {
+                <tr>
+                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Number)</td>
+                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Name)</td>
+                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Score)</td>
+                    <td class="col-xs-6">
+                        <button type="button" class="btn btn-info" name="edit" onclick="location.href='@Url.Action("LoadAnswer", "Answer", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number, answerNumber = answer.Number})'">Edit</button>
+                        <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteAnswer", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number, answerNumber = answer.Number})'">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

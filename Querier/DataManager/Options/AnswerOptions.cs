@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataManager.Options
+namespace DataManager
 {
     public static class AnswerOptions
     {

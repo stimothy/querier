@@ -8,8 +8,8 @@ namespace DataManager
     public class Query
     {
         [Key]
-        public int UserID;
-        public int Number;
+        public int UserID { get; set; }
+        public int Number { get; set; }
         public string Name { get; set; }
 
         public List<Question> Questions;

@@ -1,7 +1,7 @@
 ﻿@model DataManager.Query;
 
 @{
-    ViewData["Title"] = "Manage Query";
+    ViewData["Title"] =  Model.Name;
 }
 
 <div class="container-fluid">
@@ -30,7 +30,7 @@
                     <td class="col-xs-3">@Html.DisplayFor(model => question.Number)</td>
                     <td class="col-xs-3">@Html.DisplayFor(model => question.Name)</td>
                     <td class="col-xs-6">
-                        <button type="button" class="btn btn-info" name="edit">Edit</button>
+                        <button type="button" class="btn btn-info" name="edit" onclick="location.href='@Url.Action("ManageQuestion", "Question", new { queryNumber = Model.Number, questionNumber  = question.Number})'">Edit</button>
                         <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuestion", "Query", new { queryID = Model.Number, questionNumber  = question.Number})'">Delete</button>
                     </td>
                 </tr>

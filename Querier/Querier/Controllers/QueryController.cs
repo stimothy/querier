@@ -1,6 +1,7 @@
 ﻿using DataManager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Querier.Controllers
 {
@@ -11,7 +12,8 @@ namespace Querier.Controllers
         {
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
-            Query query = QueryOptions.Load(user, queryID);
+            var query = QueryOptions.Load(user, queryID);
+
             return View("LoadQuery", query);
         }
 
@@ -30,8 +32,6 @@ namespace Querier.Controllers
 
             QueryOptions.DeleteQuestion(query, questionNumber);
 
-            query = QueryOptions.Load(user, queryID);
-
             return View("LoadQuery", query);
         }
 
@@ -44,9 +44,10 @@ namespace Querier.Controllers
 
             QueryOptions.AddQuestion(query);
 
-            query = QueryOptions.Load(user, queryID);
+            var questionNumber = query.Questions.Max(x => x.Number);
+            var question = QuestionOptions.Load(query, questionNumber);
 
-            return View("LoadQuery", query);
+            return RedirectToAction("LoadQuestion", "Question", question);
         }
     }
 }

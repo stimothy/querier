@@ -16,19 +16,17 @@ namespace DataManager
             QueryData.Save(query);
         }
 
-        public static Query AddQuestion(Query query)
+        public static void AddQuestion(Query query)
         {
             QuestionData.Add(query.UserID, query.Number);
             query.Questions = QueryData.GetQuestions(query.UserID, query.Number);
-            return query;
         }
 
-        public static Query DeleteQuestion(Query query, int number)
+        public static void DeleteQuestion(Query query, int number)
         {
             Question question = QuestionData.Get(query.UserID, query.Number, number);
             QuestionData.Delete(question);
             query.Questions = QueryData.GetQuestions(query.UserID, query.Number);
-            return query;
         }
     }
 }

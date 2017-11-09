@@ -11,19 +11,17 @@ namespace DataManager
             return new User(loginID);
         }
 
-        public static User AddQuery(User user)
+        public static void AddQuery(User user)
         {
             QueryData.Add(user.UserID);
             user.Queries = UserData.GetQueries(user.UserID);
-            return user;
         }
 
-        public static User DeleteQuery(User user, int number)
+        public static void DeleteQuery(User user, int number)
         {
             Query query = QueryData.Get(user.UserID, number);
             QueryData.Delete(query);
             user.Queries = UserData.GetQueries(user.UserID);
-            return user;
         }
     }
 }
