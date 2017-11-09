@@ -50,7 +50,6 @@ namespace Querier.Controllers
             var query = DataManager.QueryOptions.Load(user, queryid);
 
             var queryID = query.Number;
-
             return RedirectToAction("ManageQuery","Query", queryID);
         }
         [Authorize]
