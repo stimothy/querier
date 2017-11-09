@@ -6,9 +6,9 @@ namespace DataManager
 {
     public class Question
     {
-        public int UserID;
-        public int QueryNumber;
-        public int Number;
+        public int UserID { get; set; }
+        public int QueryNumber { get; set; }
+        public int Number { get; set; }
         public string Name { get; set; }
 
         public List<Answer> Answers;
