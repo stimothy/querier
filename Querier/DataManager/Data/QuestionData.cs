@@ -40,6 +40,8 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = number;
 
             DataTable dt = SqlHelper.TableExecute(sqlCmd);
+            DataView dv = dt.DefaultView;
+            dv.Sort = "Ordinality ASC";
 
             foreach(DataRow dr in dt.Rows)
             {

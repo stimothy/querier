@@ -38,7 +38,7 @@
     <table class="table table-fixed">
         <thead>
             <tr>
-                <th class="col-xs-3">Answer Number</th>
+                <th class="col-xs-3">Order Number</th>
                 <th class="col-xs-3">Answer</th>
                 <th class="col-xs-3">Score</th>
                 <th class="col-xs-6">Options</th>
@@ -48,7 +48,7 @@
             @foreach (var answer in Model.Answers)
             {
                 <tr>
-                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Number)</td>
+                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Order)</td>
                     <td class="col-xs-3">@Html.DisplayFor(model => answer.Name)</td>
                     <td class="col-xs-3">@Html.DisplayFor(model => answer.Score)</td>
                     <td class="col-xs-6">
