@@ -23,6 +23,14 @@ namespace Querier.Controllers
             return View(query);
         }
 
+        [Authorize][HttpPost]
+        public IActionResult SaveQuery(Query query)
+        {
+            QueryOptions.Save(query);
+
+            return RedirectToAction("Index", "User");
+        }
+
         [Authorize]
         public IActionResult DeleteQuestion(int queryID, int questionNumber)
         {
