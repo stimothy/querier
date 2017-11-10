@@ -14,7 +14,8 @@
             @Html.HiddenFor(model => Model.Number)
             <tr>
                 <td>
-                    @Html.DisplayNameFor(model => Model.Name):
+                    @*@Html.DisplayNameFor(model => Model.Name):*@
+                    Change Name: 
                 </td>
                 <td>
                     @Html.TextBoxFor(model => Model.Name)
@@ -29,7 +30,7 @@
                 </td>
             </tr>
         </table>
-        <input type="button" value="Back" onclick="location.href='@Url.Action("ManageQuestion", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.QuestionNumber })'">
-        <input type="submit" value="Update" /> 
+        <input style="margin-top: 5px;" class="btn btn-default" type="button" value="Cancel" onclick="location.href='@Url.Action("ManageQuestion", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.QuestionNumber })'">
+        <input style="margin-top: 5px;" class="btn btn-success" type="submit" value="Save" /> 
     }
 </div>
