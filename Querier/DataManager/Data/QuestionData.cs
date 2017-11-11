@@ -45,7 +45,7 @@ namespace DataManager
             DataView dv = dt.DefaultView;
             dv.Sort = "Ordinality ASC";
 
-            foreach(DataRow dr in dt.Rows)
+            foreach(DataRow dr in dv.Table.Rows)
             {
                 Answers.Add(new Answer(dr));
             }
