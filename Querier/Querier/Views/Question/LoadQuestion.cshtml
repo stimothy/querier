@@ -20,6 +20,14 @@
                     @Html.TextBoxFor(model => Model.Name)
                 </td>
             </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => Model.Order):
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => Model.Order)
+                </td>
+            </tr>
         </table>
         <input type="button" value="Back" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = Model.QueryNumber })'">
         <input type="submit" value="Update" />
