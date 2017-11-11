@@ -1,0 +1,14 @@
+﻿@model DataManager.Question
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr/>
+<ol>
+    @foreach(var item in Model.Answers)
+    {
+        <li><button title="answerbtn" class="btn answer-btn" onclick="">@Html.DisplayFor(model => item.Name)</button></li>
+    }
+</ol>

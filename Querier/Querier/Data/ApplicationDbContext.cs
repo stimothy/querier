@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Querier.Models;
+using DataManager;
 
 namespace Querier.Data
 {
@@ -24,5 +25,7 @@ namespace Querier.Data
         }
 
         public DbSet<DataManager.User> UserModel { get; set; }
+
+        public DbSet<DataManager.Query> Query { get; set; }
     }
 }
