@@ -8,12 +8,14 @@ namespace DataManager
 {
     public static class QuestionData
     {
-        public static void Add(int userID, int queryNumber, string name = null)
+        public static void Add(int userID, int queryNumber, string name = null, int order = 0)
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryQuestionInsert", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = queryNumber;
             if (name != null) sqlCmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar)).Value = name;
+
+            if (name != null) sqlCmd.Parameters.Add(new SqlParameter("@Ordinality", SqlDbType.Int)).Value = order;
 
             SqlHelper.Execute(sqlCmd);
         }
@@ -40,8 +42,10 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = number;
 
             DataTable dt = SqlHelper.TableExecute(sqlCmd);
+            DataView dv = dt.DefaultView;
+            dv.Sort = "Ordinality ASC";
 
-            foreach(DataRow dr in dt.Rows)
+            foreach(DataRow dr in dv.Table.Rows)
             {
                 Answers.Add(new Answer(dr));
             }
@@ -56,6 +60,8 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = question.QueryNumber;
             sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = question.Number;
             sqlCmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar)).Value = question.Name;
+            sqlCmd.Parameters.Add(new SqlParameter("@Ordinality", SqlDbType.Int)).Value = question.Order;
+
 
             SqlHelper.Execute(sqlCmd);
         }

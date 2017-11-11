@@ -44,7 +44,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th class="col-xs-3">Question Number</th>
+                <th class="col-xs-3">Order Number</th>
                 <th class="col-xs-3">Question</th>
                 <th class="col-xs-6">Options</th>
             </tr>
@@ -53,7 +53,7 @@
             @foreach (var question in Model.Questions)
             {
                 <tr>
-                    <td class="col-xs-3">@Html.DisplayFor(model => question.Number)</td>
+                    <td class="col-xs-3">@Html.DisplayFor(model => question.Order)</td>
                     <td class="col-xs-3">@Html.DisplayFor(model => question.Name)</td>
                     <td class="col-xs-6">
                         <button type="button" class="btn btn-info" name="edit" onclick="location.href='@Url.Action("ManageQuestion", "Question", new { queryNumber = Model.Number, questionNumber  = question.Number})'">Edit</button>
