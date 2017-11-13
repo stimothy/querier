@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Querier.Data;
 using Querier.Models;
 using Querier.Services;
+using System.Net.WebSockets;
+using Microsoft.AspNetCore.Http;
+using System.Threading;
+using System.Text;
 
 namespace Querier
 {
@@ -68,17 +73,58 @@ namespace Querier
             });
             
             app.UseWebSockets();
-            app.Use(async (http, next) =>
+            app.Use(async (context, next) =>
             {
-                if (http.WebSockets.IsWebSocketRequest)
+                if (context.Request.Path == "/ws")
                 {
-                    //Handle WebSocket Requests here.
+                    if (context.WebSockets.IsWebSocketRequest)
+                    {
+                        WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                        await Echo(context, webSocket);
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 400;
+                    }
                 }
                 else
                 {
                     await next();
                 }
+
             });
+        }
+
+        private async Task Echo(HttpContext context, WebSocket webSocket)
+        {
+            var buffer = new byte[4 * 1024];
+            //WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+
+            while (webSocket.State != WebSocketState.Closed)
+            {
+                string msg = "Hello";
+                byte[] sendBuffer = Encoding.Unicode.GetBytes(msg);
+                await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                System.Threading.Thread.Sleep(1000);
+            }
+            //timer.Stop();
+            //await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing socket", CancellationToken.None);
+
+            //while (!result.CloseStatus.HasValue)
+            //{
+            //    await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
+
+            //    result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            //}
+            //await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+        }
+
+        private async static Task SendMessage(WebSocket webSocket)
+        {
+            string msg = "Hello";
+            byte[] sendBuffer = Encoding.Unicode.GetBytes(msg);
+            await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            throw new NotImplementedException();
         }
     }
 }
