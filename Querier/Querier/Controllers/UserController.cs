@@ -10,7 +10,7 @@ namespace Querier.Controllers
         public object FormsAuthentication { get; private set; }
 
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(int userID)
         {
             string loginID = User.Identity.Name.ToString();
             User user = UserOptions.GetUser(loginID);
@@ -24,12 +24,16 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
 
+            //var queryID = query.Number;
+            //return RedirectToAction("ManageQuery","Query", queryID);
+
             UserOptions.AddQuery(user);
 
             var queryid = user.Queries.Max(x => x.Number);
             var query = QueryOptions.Load(user, queryid);
             
             return RedirectToAction("LoadQuery", "Query", query);
+
         }
 
         [Authorize]

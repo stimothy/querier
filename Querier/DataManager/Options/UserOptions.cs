@@ -13,7 +13,7 @@ namespace DataManager
 
         public static void AddQuery(User user)
         {
-            QueryData.Add(user.UserID);
+            QueryData.Add(user.UserID, "New Query");
             user.Queries = UserData.GetQueries(user.UserID);
         }
 

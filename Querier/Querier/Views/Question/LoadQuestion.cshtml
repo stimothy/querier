@@ -4,8 +4,10 @@
     ViewData["Title"] = Model.Name;
 }
 
-<div class="container-fluid">
-    <h2>@ViewData["Title"]</h2>
+<h2>@ViewData["Title"]</h2>
+<hr/>
+<div class="row">
+<div class="container-fluid col-sm-12">
     @using (Html.BeginForm("SaveQuestion", "Question", FormMethod.Post, Model))
     {
         <table cellpadding="0" cellspacing="0">
@@ -14,18 +16,22 @@
             @Html.HiddenFor(model => Model.Number)
             <tr>
                 <td>
-                    @Html.DisplayNameFor(model => Model.Name):
+                    @*@Html.DisplayNameFor(model => Model.Name):*@
+                    Change Name:
                 </td>
                 <td>
                     @Html.TextBoxFor(model => Model.Name)
                 </td>
             </tr>
         </table>
-        <input type="button" value="Back" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = Model.QueryNumber })'">
-        <input type="submit" value="Update" />
+        <input style="margin-top: 5px;" type="button" class="btn btn-default" value="Back" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = Model.QueryNumber })'">
+        <input style="margin-top: 5px;" class="btn btn-success" type="submit" value="Update" />
     }
+    </div>
 </div>
-<div class="container-fluid">
+<hr/>
+<div class="row">
+<div class=" col-sm-12 container-fluid">
     <form class="navbar-form no-margin no-padding" role="search">
         <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("InsertAnswer", "Question", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">Add Answer</button>
         <div class="form-group">
@@ -33,9 +39,10 @@
         </div>
     </form>
 </div>
+</div>
 
 <div class="container-fluid">
-    <table class="table table-fixed">
+    <table class="table">
         <thead>
             <tr>
                 <th class="col-xs-3">Answer Number</th>
