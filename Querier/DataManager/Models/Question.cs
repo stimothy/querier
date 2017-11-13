@@ -6,10 +6,11 @@ namespace DataManager
 {
     public class Question
     {
-        public int UserID;
-        public int QueryNumber;
-        public int Number;
+        public int UserID { get; set; }
+        public int QueryNumber { get; set; }
+        public int Number { get; set; }
         public string Name { get; set; }
+        public int Order { get; set; }
 
         public List<Answer> Answers;
 
@@ -18,6 +19,7 @@ namespace DataManager
             UserID = 0;
             QueryNumber = 0;
             Number = 0;
+            Order = 0;
 
             Answers = new List<Answer>();
         }
@@ -28,6 +30,7 @@ namespace DataManager
 
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
             if (dr["name"] != null) Name = dr["name"].ToString();
+            if (dr["ordinality"] != null) Order = int.Parse(dr["ordinality"].ToString());
 
             if (IsFullLoad)
             {

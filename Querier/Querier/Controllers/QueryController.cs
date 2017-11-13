@@ -1,6 +1,7 @@
 ﻿using DataManager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Querier.Controllers
 {
@@ -20,6 +21,14 @@ namespace Querier.Controllers
         public IActionResult LoadQuery(Query query)
         {
             return View(query);
+        }
+
+        [Authorize][HttpPost]
+        public IActionResult SaveQuery(Query query)
+        {
+            QueryOptions.Save(query);
+
+            return RedirectToAction("Index", "User");
         }
 
         [Authorize]
@@ -43,7 +52,11 @@ namespace Querier.Controllers
 
             QueryOptions.AddQuestion(query);
 
-            return View("LoadQuery", query);
+            var questionNumber = query.Questions.Max(x => x.Number);
+            var question = QuestionOptions.Load(query, questionNumber);
+
+            return RedirectToAction("LoadQuestion", "Question", question);
         }
+        
     }
 }

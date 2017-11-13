@@ -30,13 +30,12 @@ namespace Querier.Controllers
             return View("LoadAnswer", answer);
         }
 
-        [Authorize]
-        [HttpPost]
+        [Authorize][HttpPost]
         public IActionResult SaveAnswer(Answer answer)
         {
             AnswerOptions.Save(answer);
 
-            return this.RedirectToAction("LoadQuestion", "Question", new { queryNumber = answer.QueryNumber, questionNumber = answer.QuestionNumber });
+            return RedirectToAction("ManageQuestion", "Question", new { queryNumber = answer.QueryNumber, questionNumber = answer.QuestionNumber });
         }
     }
 }

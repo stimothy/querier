@@ -18,7 +18,7 @@ namespace DataManager
 
         public static void AddAnswer(Question question)
         {
-            AnswerData.Add(question.UserID, question.Number, question.Number);
+            AnswerData.Add(question.UserID, question.QueryNumber, question.Number, question.Answers.Count + 1, "New Answer");
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
         }
 

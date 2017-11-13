@@ -7,24 +7,28 @@ namespace Querier.Controllers
 {
     public class QuestionController : Controller
     {
-        [Authorize]
-        public IActionResult ManageQuestion()
-        {
-            var username = User.Identity.Name.ToString();
-            var user = UserOptions.GetUser(username);
-            Query query = QueryOptions.Load(user, 1);
-            Question question = QuestionOptions.Load(query, 1);
-            return View("LoadQuestion", question);
-        }
-
-        [Authorize]
-        public IActionResult LoadQuestion(int queryNumber, int questionNumber)
+        [Authorize][HttpGet]
+        public IActionResult ManageQuestion(int queryNumber, int questionNumber)
         {
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             Query query = QueryOptions.Load(user, queryNumber);
             Question question = QuestionOptions.Load(query, questionNumber);
             return View("LoadQuestion", question);
+        }
+
+        [Authorize][HttpGet]
+        public IActionResult LoadQuestion(Question question)
+        {
+            return View("LoadQuestion", question);
+        }
+
+        [Authorize][HttpPost]
+        public IActionResult SaveQuestion(Question question)
+        {
+            QuestionOptions.Save(question);
+
+            return RedirectToAction("ManageQuery", "Query", new { queryID = question.QueryNumber });
         }
 
         [Authorize]
@@ -50,10 +54,7 @@ namespace Querier.Controllers
 
             QuestionOptions.AddAnswer(question);
 
-            //question.Answers.Max(x => x.Number);
-
-            //return View("LoadQuestion", question);
-            return this.RedirectToAction("LoadAnswer", "Answer", new { queryNumber = question.QueryNumber, questionNumber = question.Number, answerNumber = question.Answers.Max(x => x.Number) });
+            return RedirectToAction("LoadAnswer", "Answer", new { queryNumber = question.QueryNumber, questionNumber = question.Number, answerNumber = question.Answers.Max(x => x.Number) });
         }
     }
 }
