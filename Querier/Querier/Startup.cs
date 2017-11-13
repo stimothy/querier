@@ -80,7 +80,7 @@ namespace Querier
                     if (context.WebSockets.IsWebSocketRequest)
                     {
                         WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                        await Echo(context, webSocket);
+                        await Update(context, webSocket);
                     }
                     else
                     {
@@ -95,10 +95,9 @@ namespace Querier
             });
         }
 
-        private async Task Echo(HttpContext context, WebSocket webSocket)
+        private async Task Update(HttpContext context, WebSocket webSocket)
         {
             var buffer = new byte[4 * 1024];
-            //WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 
             while (webSocket.State != WebSocketState.Closed)
             {
@@ -107,6 +106,8 @@ namespace Querier
                 await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
                 System.Threading.Thread.Sleep(1000);
             }
+            //WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+
             //timer.Stop();
             //await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing socket", CancellationToken.None);
 
