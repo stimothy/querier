@@ -23,6 +23,14 @@
                     @Html.TextBoxFor(model => Model.Name)
                 </td>
             </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => Model.Order):
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => Model.Order)
+                </td>
+            </tr>
         </table>
         <input style="margin-top: 5px;" type="button" class="btn btn-default" value="Back" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = Model.QueryNumber })'">
         <input style="margin-top: 5px;" class="btn btn-success" type="submit" value="Update" />
@@ -45,7 +53,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th class="col-xs-3">Answer Number</th>
+                <th class="col-xs-3">Order Number</th>
                 <th class="col-xs-3">Answer</th>
                 <th class="col-xs-3">Score</th>
                 <th class="col-xs-6">Options</th>
@@ -55,7 +63,7 @@
             @foreach (var answer in Model.Answers)
             {
                 <tr>
-                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Number)</td>
+                    <td class="col-xs-3">@Html.DisplayFor(model => answer.Order)</td>
                     <td class="col-xs-3">@Html.DisplayFor(model => answer.Name)</td>
                     <td class="col-xs-3">@Html.DisplayFor(model => answer.Score)</td>
                     <td class="col-xs-6">
