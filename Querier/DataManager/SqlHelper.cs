@@ -17,6 +17,7 @@ namespace DataManager
             DataTable dt = new DataTable();
             sqlCmd.CommandType = CommandType.StoredProcedure;
 
+            //System.InvalidOperationException: 'Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.'
             sqlCmd.Connection.Open();
 
             foreach (SqlParameter parameter in sqlCmd.Parameters)
@@ -90,7 +91,7 @@ namespace DataManager
                 if (parameter == null)
                     parameter.Value = DBNull.Value;
             }
-
+            //System.Data.SqlClient.SqlException: 'Procedure or function 'QuestionUpdate' expects parameter '@Ordinality', which was not supplied.'
             sqlCmd.ExecuteNonQuery();
 
             if (sqlCmd.Connection.State == ConnectionState.Closed)

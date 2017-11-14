@@ -1,0 +1,17 @@
+﻿@model DataManager.Question
+
+@{
+    ViewData["Title"] = @"Active Query";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<button type="button" class="btn btn-primary" name="next" onclick="location.href='@Url.Action("LoadNextQuestion", "Active", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">>>></button>
+
+<hr />
+<ol>
+    @foreach (var item in Model.Answers)
+    {
+        <li><button type="button" class="btn btn-secondary">@Html.DisplayFor(model => item.Name)</button></li>
+    }
+</ol>
