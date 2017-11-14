@@ -28,7 +28,7 @@ namespace DataManager
             SqlDataAdapter adapter = new SqlDataAdapter(sqlCmd);
             adapter.Fill(dt);
 
-            if (sqlCmd.Connection.State == ConnectionState.Closed)
+            if (sqlCmd.Connection.State != ConnectionState.Closed)
                 sqlCmd.Connection.Close();
 
             return dt;
@@ -49,7 +49,7 @@ namespace DataManager
 
             object result = sqlCmd.ExecuteScalar();
             
-            if (sqlCmd.Connection.State == ConnectionState.Closed)
+            if (sqlCmd.Connection.State != ConnectionState.Closed)
                 sqlCmd.Connection.Close();
 
             if (result != null)
@@ -73,7 +73,7 @@ namespace DataManager
             SqlDataAdapter adapter = new SqlDataAdapter(sqlCmd);
             adapter.Fill(dt);
 
-            if (sqlCmd.Connection.State == ConnectionState.Closed)
+            if (sqlCmd.Connection.State != ConnectionState.Closed)
                 sqlCmd.Connection.Close();
 
             return dt.Rows[0][0].ToString();
@@ -93,7 +93,7 @@ namespace DataManager
 
             sqlCmd.ExecuteNonQuery();
 
-            if (sqlCmd.Connection.State == ConnectionState.Closed)
+            if (sqlCmd.Connection.State != ConnectionState.Closed)
                 sqlCmd.Connection.Close();
         }
     }
