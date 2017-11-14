@@ -7,7 +7,7 @@ namespace DataManager
     public static class QueryOptions
     {
         public static Query Load(User user, int number)
-        {
+        { 
             return QueryData.Get(user.UserID, number);
         }
 
