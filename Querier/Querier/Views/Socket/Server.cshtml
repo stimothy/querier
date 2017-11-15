@@ -44,7 +44,7 @@
             -->
         <button id="closeButton">Stop</button>
     </div>
-        
+
     <h2>Communication Log</h2>
     <table style="width: 800px">
         <thead>
@@ -70,8 +70,8 @@
 
         var scheme = document.location.protocol == "https:" ? "wss" : "ws";
         var port = document.location.port ? (":" + document.location.port) : "";
-        var connectionUrl = scheme + "://" + document.location.hostname + port + "/Socket/Server/ws";
-        socket = new WebSocket(connectionUrl);
+        var connectionUrl = scheme + "://" + document.location.hostname + port + "/ws";
+        /*socket = new WebSocket(connectionUrl);
         socket.onopen = function (event) {
                 updateState();
                 commsLog.innerHTML += '<tr>' +
@@ -92,6 +92,7 @@
                     '<td class="commslog-data">' + htmlEscape(event.data) + '</td>'
                 '</tr>';
             };
+        
         function updateState() {
             function disable() {
                 //sendMessage.disabled = true;

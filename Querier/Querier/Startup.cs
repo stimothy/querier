@@ -75,7 +75,7 @@ namespace Querier
             app.UseWebSockets();
             app.Use(async (context, next) =>
             {
-                if (context.Request.Path == "/ws")
+                if (context.Request.Path == "/Socket/Server/ws")
                 {
                     if (context.WebSockets.IsWebSocketRequest)
                     {
@@ -118,14 +118,6 @@ namespace Querier
             //    result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             //}
             //await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-        }
-
-        private async static Task SendMessage(WebSocket webSocket)
-        {
-            string msg = "Hello";
-            byte[] sendBuffer = Encoding.Unicode.GetBytes(msg);
-            await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
-            throw new NotImplementedException();
         }
     }
 }
