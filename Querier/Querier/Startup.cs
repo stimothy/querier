@@ -80,8 +80,10 @@ namespace Querier
                 {
                     if (context.WebSockets.IsWebSocketRequest)
                     {
-                        WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                        await UpdateServer(context, webSocket);
+                        Controllers.SocketController controller = new Controllers.SocketController();
+                        controller.Server(context);
+                        //WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                        //await UpdateServer(context, webSocket);
                     }
                     else
                     {

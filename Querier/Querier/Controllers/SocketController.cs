@@ -22,6 +22,25 @@ namespace Querier.Controllers
             return View();
         }
 
+        [NonAction]
+        public async void Server(HttpContext context)
+        {
+                if (context.WebSockets.IsWebSocketRequest)
+                {
+                    var webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                    if (webSocket != null && webSocket.State == WebSocketState.Open)
+                    {
+                        while (webSocket.State != WebSocketState.Closed)
+                        {
+                            string msg = "Hi from Server controller.";
+                            byte[] sendBuffer = Encoding.Unicode.GetBytes(msg);
+                            await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                            System.Threading.Thread.Sleep(1000);
+                        }
+                    }
+                }
+        }
+
         //[HttpGet("v1/resources/{id}")]
         /*public async Task<IActionResult> Server(string id)
         {

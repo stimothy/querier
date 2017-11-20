@@ -72,6 +72,7 @@
         var port = document.location.port ? (":" + document.location.port) : "";
         var connectionUrl = scheme + "://" + document.location.hostname + port + "/Both/ws";
         socket = new WebSocket(connectionUrl);
+        socket.
         socket.onopen = function (event) {
                 updateState();
                 commsLog.innerHTML += '<tr>' +
