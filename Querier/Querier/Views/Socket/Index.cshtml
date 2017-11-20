@@ -70,7 +70,7 @@
 
         var scheme = document.location.protocol == "https:" ? "wss" : "ws";
         var port = document.location.port ? (":" + document.location.port) : "";
-        var connectionUrl = scheme + "://" + document.location.hostname + port + "/Socket/Server/ws";
+        var connectionUrl = scheme + "://" + document.location.hostname + port + "/Both/ws";
         socket = new WebSocket(connectionUrl);
         socket.onopen = function (event) {
                 updateState();

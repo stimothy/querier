@@ -17,15 +17,21 @@ namespace Querier.Controllers
             return View();
         }
 
+        public IActionResult Server()
+        {
+            return View();
+        }
+
         //[HttpGet("v1/resources/{id}")]
-        public async Task<IActionResult> Server(string id)
+        /*public async Task<IActionResult> Server(string id)
         {
             /*var resource = await this.repository.GetAsync(id);
             if (resource == null)
             {
                 return new HttpStatusCodeResult(404);
             }
-            */
+            *//*
+            if (this.HttpContext.Request.Path == "/Socket/Server")
             if (this.HttpContext.WebSockets.IsWebSocketRequest)
             {
                 var webSocket = await this.HttpContext.WebSockets.AcceptWebSocketAsync();
@@ -33,7 +39,7 @@ namespace Querier.Controllers
                 {
                     while (webSocket.State != WebSocketState.Closed)
                     {
-                        string msg = "Hello";
+                        string msg = "Server";
                         byte[] sendBuffer = Encoding.Unicode.GetBytes(msg);
                         await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
                         System.Threading.Thread.Sleep(1000);
@@ -42,6 +48,6 @@ namespace Querier.Controllers
             }
 
             return View();
-        }
+        }*/
     }
 }
