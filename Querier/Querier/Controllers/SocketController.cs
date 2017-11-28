@@ -17,31 +17,60 @@ namespace Querier.Controllers
             return View();
         }
 
-        public async Task Update(HttpContext context, WebSocket webSocket)
+        public IActionResult Server()
         {
-            var buffer = new byte[4 * 1024];
-
-            while (webSocket.State != WebSocketState.Closed)
-            {
-                string msg = "Hello";
-                byte[] sendBuffer = Encoding.Unicode.GetBytes(msg);
-                await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
-                System.Threading.Thread.Sleep(1000);
-            }
-            /*
-            WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-
-            timer.Stop();
-            await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing socket", CancellationToken.None);
-
-            while (!result.CloseStatus.HasValue)
-            {
-                await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
-
-                result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            }
-            await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-            */
+            return View();
         }
+
+        [NonAction]
+        public async void Server(HttpContext context)
+        {
+            //var wssv = new WebSocketServer("ws://localhost:");
+            if (context.WebSockets.IsWebSocketRequest)
+            {
+                byte[] buffer = new byte[4 * 1024];
+                var webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                string msg = Encoding.BigEndianUnicode.GetString(buffer, 0, buffer.Length);
+                if (webSocket != null && webSocket.State == WebSocketState.Open)
+                {
+                    while (webSocket.State != WebSocketState.Closed)
+                    {
+                        //string msg = "Hi from Server controller.";
+                        byte[] sendBuffer = Encoding.Unicode.GetBytes(msg);
+                        await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                }
+            }
+        }
+
+        //[HttpGet("v1/resources/{id}")]
+        /*public async Task<IActionResult> Server(string id)
+        {
+            /*var resource = await this.repository.GetAsync(id);
+            if (resource == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+            *//*
+            if (this.HttpContext.Request.Path == "/Socket/Server")
+            if (this.HttpContext.WebSockets.IsWebSocketRequest)
+            {
+                var webSocket = await this.HttpContext.WebSockets.AcceptWebSocketAsync();
+                if (webSocket != null && webSocket.State == WebSocketState.Open)
+                {
+                    while (webSocket.State != WebSocketState.Closed)
+                    {
+                        string msg = "Server";
+                        byte[] sendBuffer = Encoding.Unicode.GetBytes(msg);
+                        await webSocket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                }
+            }
+
+            return View();
+        }*/
     }
 }

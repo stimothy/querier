@@ -1,4 +1,5 @@
 ﻿@model DataManager.Question
+@using Newtonsoft.Json
 
 @{
     ViewData["Title"] = @"Active Query";
@@ -15,3 +16,11 @@
         <li><button type="button" class="btn btn-secondary">@Html.DisplayFor(model => item.Name)</button></li>
     }
 </ol>
+<script>
+    var scheme = document.location.protocol == "https:" ? "wss" : "ws";
+    var port = document.location.port ? (":" + document.location.port) : "";
+    var connectionUrl = scheme + "://" + document.location.hostname + port + "/Server/ws";
+    socket = new WebSocket(connectionUrl);
+    var msg = @JsonConvert.SerializeObject(Model);
+    socket.send(msg);
+</script>
