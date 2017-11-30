@@ -37,7 +37,7 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = answer.UserID;
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = answer.QueryNumber;
             sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = answer.QuestionNumber;
-            sqlCmd.Parameters.Add(new SqlParameter("@Number", SqlDbType.Int)).Value = answer.Number;
+            sqlCmd.Parameters.Add(new SqlParameter("@AnswerNumber", SqlDbType.Int)).Value = answer.Number;
             sqlCmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar)).Value = answer.Name;
             sqlCmd.Parameters.Add(new SqlParameter("@Score", SqlDbType.Int)).Value = answer.Score;
             sqlCmd.Parameters.Add(new SqlParameter("@Ordinality", SqlDbType.Int)).Value = answer.Order;
