@@ -46,7 +46,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <!-- <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li> -->
-                    <!-- <li><a asp-area="" asp-controller="Home" asp-action="GuestAccess">Guest</a></li> -->
+                    <li><a asp-area="" asp-controller="Active" asp-action="QueryStart">QueryStartPage</a></li>
                     @if(Context.User.Identity.IsAuthenticated) { 
                         <li><a asp-area="" asp-controller="User" asp-action="Index">My Queries</a></li>
                     }
