@@ -56,13 +56,17 @@ namespace Querier.Controllers
 
             resultList = new List<string>();
             resultList.Add(question.Number.ToString());
-            
-            foreach(var item in question.Answers)
+
+            foreach (var item in question.Answers)
             {
                 resultList.Add(item.ToString());
             }
 
             return View("ResultsPage", resultList);
+        }
+        public IActionResult QueryStart()
+        {
+            return View("QueryStartView");
         }
     }
 }
