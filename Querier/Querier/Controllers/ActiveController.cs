@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using DataManager;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Querier.Controllers
 {
@@ -42,6 +43,26 @@ namespace Querier.Controllers
             {
                 return RedirectToAction(nameof(UserController.Index), "User");
             }
+        }
+
+        [Authorize]
+        public IActionResult DisplayResults(int queryNumber, int questionNumber, List<string> resultList)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, 0);
+
+            var question = query.Questions[0];
+
+            resultList = new List<string>();
+            resultList.Add(question.Number.ToString());
+            
+            foreach(var item in question.Answers)
+            {
+                resultList.Add(item.ToString());
+            }
+
+            return View("ResultsPage", resultList);
         }
     }
 }
