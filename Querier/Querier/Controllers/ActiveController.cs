@@ -43,5 +43,11 @@ namespace Querier.Controllers
                 return RedirectToAction(nameof(UserController.Index), "User");
             }
         }
+
+
+        public IActionResult QueryStart()
+        {
+            return View("QueryStartView");
+        }
     }
 }
