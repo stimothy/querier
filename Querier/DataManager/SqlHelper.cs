@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -8,7 +6,7 @@ namespace DataManager
 {
     public static class SqlHelper
     {
-        public const string DefaultConnection = "Data Source=querierapp2.chx2d99q6lfi.us-west-1.rds.amazonaws.com;Initial Catalog=Querier;user id=zarlo265;password=querierpassword1;";
+        public const string DefaultConnection = "Data Source=querierapp.cd5fn2tgvi2d.us-west-2.rds.amazonaws.com;Initial Catalog=Querier;user id=zarlo265;password=querierpassword1;";
 
         public static SqlConnection GetConnection() { return new SqlConnection(DefaultConnection); }
 
@@ -79,7 +77,7 @@ namespace DataManager
 
             return dt.Rows[0][0].ToString();
         }
-
+        
         public static void Execute(SqlCommand sqlCmd)
         {
             sqlCmd.CommandType = CommandType.StoredProcedure;
@@ -92,6 +90,10 @@ namespace DataManager
                     parameter.Value = DBNull.Value;
             }
             //System.Data.SqlClient.SqlException: 'Procedure or function 'QuestionUpdate' expects parameter '@Ordinality', which was not supplied.'
+
+            //System.Data.SqlClient.SqlException: 'Cannot insert the value NULL into column 'ordinality', table 'Querier.dbo.question'; column does not allow nulls. INSERT fails. The statement has been terminated.'
+            //System.Data.SqlClient.SqlException: 'Cannot insert the value NULL into column 'number', table 'Querier.dbo.question'; column does not allow nulls. INSERT fails. The statement has been terminated.'
+
             sqlCmd.ExecuteNonQuery();
 
             if (sqlCmd.Connection.State != ConnectionState.Closed)
