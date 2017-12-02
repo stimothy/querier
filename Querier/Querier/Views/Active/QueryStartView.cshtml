@@ -1,12 +1,11 @@
-﻿<!--model DataManager.Query-->
+﻿@model DataManager.Query
 
 @{
     ViewData["Title"] = "QueryStartView";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!--<h1>Model.Name</h1>-->
-<h1 align="center">The Query Name</h1align="center">
+<h1>@Model.Name</h1>
 <h2 align="center">The Conection ID / String</h2>
-<!--<button type="button" class="btn btn-primary" name="next" onclick="location.href='Url.Action("LoadNextQuestion", "Active", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">>>></button>-->
-<button type="button" class="btn btn-primary pull-right" name="next">Start Query</button>
+
+<button type="button" class="btn btn-primary pull-right" name="start" onclick="location.href='@Url.Action("LoadActiveQuery", "Active", new { queryID = Model.Number })'">Start</button>

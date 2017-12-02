@@ -8,6 +8,16 @@ namespace Querier.Controllers
     public class ActiveController : Controller
     {
         [Authorize]
+        public IActionResult LoadQueryStartPage(int queryID)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryID);
+            
+            return View("QueryStartView", query);
+        }
+
+        [Authorize]
         public IActionResult LoadActiveQuery(int queryID)
         {
             var username = User.Identity.Name.ToString();
