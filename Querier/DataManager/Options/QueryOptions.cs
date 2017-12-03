@@ -36,12 +36,12 @@ namespace DataManager
 
         public static void Open(Query query)
         {
-            QueryData.Open(query)
+            QueryData.Open(query);
         }
 
         public static void Close(Query query)
         {
-            QueryData.Close(query)
+            QueryData.Close(query);
         }
     }
 }

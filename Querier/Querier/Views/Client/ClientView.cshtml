@@ -2,6 +2,16 @@
 @{
     ViewData["Title"] = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (Model.Number == 0)
+    {
+        <h2>You have joined query: @Html.DisplayFor(model => Model.Code)</h2>
+    }
+    else
+    {
+        <p>@Html.DisplayFor(model => Model.Code)</p>
+        <br/>
+    }
 }
 
 <h2>@ViewData["Title"]</h2>
