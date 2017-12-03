@@ -28,5 +28,23 @@ namespace DataManager
             AnswerData.Delete(answer);
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
         }
+
+        public static void SetFirstActive(Query query)
+        {
+            QuestionData.SetActive(1, query.Code);
+        }
+        public static void SetNextActive(Question currentQuestion)
+        {
+            QuestionData.SetActive(currentQuestion.Number + 1, currentQuestion.Code);
+        }
+        public static Question GetActive(int currentQuestionNumber, string code, bool hasAnswered)
+        {
+            Question activeQuestion = QuestionData.GetActive(code);
+
+            if (activeQuestion.Number == currentQuestionNumber)
+                activeQuestion.IsAnswered = hasAnswered;
+
+            return activeQuestion;
+        }
     }
 }

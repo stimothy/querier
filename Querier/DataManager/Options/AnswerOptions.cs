@@ -15,5 +15,10 @@ namespace DataManager
         {
             AnswerData.Save(answer);
         }
+
+        public static void Select(Answer answer)
+        {
+            AnswerData.Select(answer);
+        }
     }
 }

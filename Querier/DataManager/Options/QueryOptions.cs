@@ -28,5 +28,20 @@ namespace DataManager
             QuestionData.Delete(question);
             query.Questions = QueryData.GetQuestions(query.UserID, query.Number);
         }
+
+        public static bool ValidCode(string code)
+        {
+            return QueryData.IsValid(code);
+        }
+
+        public static void Open(Query query)
+        {
+            QueryData.Open(query)
+        }
+
+        public static void Close(Query query)
+        {
+            QueryData.Close(query)
+        }
     }
 }

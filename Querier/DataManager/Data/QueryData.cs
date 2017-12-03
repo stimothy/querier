@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace DataManager
 {
@@ -65,6 +66,47 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = query.Number;
 
             SqlHelper.Execute(sqlCmd);
+        }
+
+        public static bool Open(Query query)
+        {
+            string code = RandomString(5);
+
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryPresent", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = query.UserID;
+            sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = query.Number;
+            sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = code;
+
+            object result = SqlHelper.ScalarExecute(sqlCmd);
+
+            return (result.ToString().ToLower() == "true" || result.ToString() == "1");
+        }
+
+        public static void Close(Query query)
+        {
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryEnd", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = query.UserID;
+            sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = query.Number;
+
+            SqlHelper.Execute(sqlCmd);
+        }
+
+        private static Random random = new Random();
+        private static string RandomString(int length)
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        public static bool IsValid(string code)
+        {
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.CheckCodeIsValid", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = code;
+
+            object result = SqlHelper.ScalarExecute(sqlCmd);
+
+            return (result.ToString().ToLower() == "true" || result.ToString() == "1");
         }
     }
 }
