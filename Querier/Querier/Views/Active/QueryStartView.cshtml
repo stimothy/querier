@@ -6,6 +6,6 @@
 }
 
 <h1>@Model.Name</h1>
-<h2 align="center">The Conection ID / String</h2>
+<h2 align="center"> Published as: <span style ="color:mediumorchid">@Model.Code</span></h2>
 
 <button type="button" class="btn btn-primary pull-right" name="start" onclick="location.href='@Url.Action("LoadActiveQuery", "Active", new { queryID = Model.Number })'">Start</button>

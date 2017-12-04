@@ -1,8 +1,8 @@
 ﻿@model DataManager.Question
 @{
-    ViewData["Title"] = "Query " + Model.Code + " has been closed.";
+    ViewData["Title"] = "Query closed.";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>Query <span style="color:mediumorchid"> @Model.Code </span> has been closed.</h2>
 <hr/>

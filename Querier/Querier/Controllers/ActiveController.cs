@@ -15,7 +15,8 @@ namespace Querier.Controllers
             var query = QueryOptions.Load(user, queryID);
 
             QueryOptions.Open(query);
-            
+            query = QueryOptions.Load(user, queryID); // reload to get code
+
             return View("QueryStartView", query);
         }
 

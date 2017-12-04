@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 <div class="branded">
-        @using (@Html.BeginForm("JoinQuery", "Home", FormMethod.Post))
+        @using (@Html.BeginForm("JoinQuery", "Home", FormMethod.Post, new { @class = "navbar-form", @role = "search" }))
         {
             <label for="qID">Join a live Query:</label>
             <input name="qID" type="text" class="form-control" placeholder="Enter a Query ID">
