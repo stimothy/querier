@@ -13,6 +13,8 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryID);
+
+            QueryOptions.Open(query);
             
             return View("QueryStartView", query);
         }
@@ -42,6 +44,8 @@ namespace Querier.Controllers
             var query = QueryOptions.Load(user, queryNumber);
             var question = QuestionOptions.Load(query, questionNumber);
 
+            QuestionOptions.SetNextActive(question);
+
             try
             {
                 var nextQuestionNumber = query.Questions.First(x => x.Number > questionNumber).Number;
@@ -50,14 +54,9 @@ namespace Querier.Controllers
             }
             catch
             {
+                QueryOptions.Close(query);
                 return RedirectToAction(nameof(UserController.Index), "User");
             }
-        }
-
-
-        public IActionResult QueryStart()
-        {
-            return View("QueryStartView");
         }
     }
 }

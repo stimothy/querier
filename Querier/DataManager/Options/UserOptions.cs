@@ -23,5 +23,6 @@ namespace DataManager
             QueryData.Delete(query);
             user.Queries = UserData.GetQueries(user.UserID);
         }
+
     }
 }

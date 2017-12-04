@@ -55,5 +55,16 @@ namespace DataManager
 
             SqlHelper.Execute(sqlCmd);
         }
+
+        public static void Select(Answer answer)
+        {
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.CastVote", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = answer.UserID;
+            sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = answer.QueryNumber;
+            sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = answer.QuestionNumber;
+            sqlCmd.Parameters.Add(new SqlParameter("@AnswerNumber", SqlDbType.Int)).Value = answer.Number;
+
+            SqlHelper.Execute(sqlCmd);
+        }
     }
 }

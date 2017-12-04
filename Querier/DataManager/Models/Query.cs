@@ -11,6 +11,7 @@ namespace DataManager
         public int UserID { get; set; }
         public int Number { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
 
         public List<Question> Questions;
 
@@ -19,6 +20,7 @@ namespace DataManager
             UserID = 0;
             Number = 0;
             Questions = new List<Question>();
+            Code = null;
         }
 
         public Query(DataRow dr)
@@ -27,10 +29,12 @@ namespace DataManager
 
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
             if (dr["name"] != null) Name = dr["name"].ToString();
-
+            
             if (IsFullLoad)
             {
                 if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
+                if (dr["activeCode"] != null) Code = dr["activeCode"].ToString();
+
                 Questions = QueryData.GetQuestions(UserID, Number); 
             }
         }
