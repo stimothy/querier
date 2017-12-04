@@ -15,6 +15,7 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
 <hr/>
 <ol>
     @foreach(var item in Model.Answers)
