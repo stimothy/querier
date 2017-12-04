@@ -47,14 +47,14 @@ namespace DataManager
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
             if (dr["name"] != null) Name = dr["name"].ToString();
             if (dr["ordinality"] != null) Order = int.Parse(dr["ordinality"].ToString());
-            if (dr["activeCode"] != null) Code = dr["activeCode"].ToString();
-
+            
             IsAnswered = false;
 
             if (IsFullLoad)
             {
                 if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
                 if (dr["queryNumber"] != null) QueryNumber = int.Parse(dr["queryNumber"].ToString());
+                if (dr["activeCode"] != null) Code = dr["activeCode"].ToString();
 
                 Answers = QuestionData.GetAnswers(UserID, QueryNumber, Number); 
             }

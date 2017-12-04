@@ -27,8 +27,6 @@ namespace Querier.Controllers
         [HttpPost]
         public IActionResult JoinQuery(string qID)
         {
-            //string qID = "test";
-            //qID = Request["qID"].ToString();
             return RedirectToAction("JoinQuery", "Client", new { code = qID });
         }
 

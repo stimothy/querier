@@ -77,7 +77,7 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = query.Number;
             sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = code;
 
-            object result = SqlHelper.ScalarExecute(sqlCmd);
+            object result = SqlHelper.StringExecute(sqlCmd);
 
             return (result.ToString().ToLower() == "true" || result.ToString() == "1");
         }
@@ -104,7 +104,7 @@ namespace DataManager
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.CheckCodeIsValid", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = code;
 
-            object result = SqlHelper.ScalarExecute(sqlCmd);
+            object result = SqlHelper.StringExecute(sqlCmd);
 
             return (result.ToString().ToLower() == "true" || result.ToString() == "1");
         }

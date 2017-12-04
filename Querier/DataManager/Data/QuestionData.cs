@@ -46,7 +46,7 @@ namespace DataManager
         public static void SetActive(int activeQuestion, string code)
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.ActiveQuestionUpdate", SqlHelper.GetConnection());
-            sqlCmd.Parameters.Add(new SqlParameter("@QuestionNumber", SqlDbType.Int)).Value = activeQuestion;
+            sqlCmd.Parameters.Add(new SqlParameter("@ActiveQuestionNumber", SqlDbType.Int)).Value = activeQuestion;
             sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = code;
 
             SqlHelper.Execute(sqlCmd);
