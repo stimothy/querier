@@ -9,6 +9,19 @@ namespace Querier.Controllers
     public class ActiveController : Controller
     {
         [Authorize]
+        public IActionResult LoadQueryStartPage(int queryID)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryID);
+
+            QueryOptions.Open(query);
+            query = QueryOptions.Load(user, queryID); // reload to get code
+
+            return View("QueryStartView", query);
+        }
+
+        [Authorize]
         public IActionResult LoadActiveQuery(int queryID)
         {
             var username = User.Identity.Name.ToString();
@@ -33,6 +46,8 @@ namespace Querier.Controllers
             var query = QueryOptions.Load(user, queryNumber);
             var question = QuestionOptions.Load(query, questionNumber);
 
+            QuestionOptions.SetNextActive(question);
+
             try
             {
                 var nextQuestionNumber = query.Questions.First(x => x.Number > questionNumber).Number;
@@ -41,9 +56,11 @@ namespace Querier.Controllers
             }
             catch
             {
+                QueryOptions.Close(query);
                 return RedirectToAction(nameof(UserController.Index), "User");
             }
         }
+<<<<<<< HEAD
 
         [Authorize]
         public IActionResult DisplayResults(int queryNumber, int questionNumber, List<string> resultList)
@@ -68,5 +85,7 @@ namespace Querier.Controllers
         {
             return View("QueryStartView");
         }
+=======
+>>>>>>> origin/master
     }
 }

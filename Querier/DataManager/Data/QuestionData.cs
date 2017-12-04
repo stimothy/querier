@@ -8,7 +8,7 @@ namespace DataManager
 {
     public static class QuestionData
     {
-        public static void Add(int userID, int queryNumber, string name = null, int order = 1)
+        public static void Add(int userID, int queryNumber, string name = null, int order = 0)
         {
             SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryQuestionInsert", SqlHelper.GetConnection());
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
@@ -30,6 +30,26 @@ namespace DataManager
             DataTable dt = SqlHelper.TableExecute(sqlCmd);
 
             return new Question(dt.Rows[0]);
+        }
+
+        public static Question GetActive(string activeCode)
+        {
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.ActiveQuestionGet", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = activeCode.ToLower();
+
+            DataTable dt = SqlHelper.TableExecute(sqlCmd);
+
+            if (dt == null) return null;
+            return new Question(dt.Rows[0]);
+        }
+
+        public static void SetActive(int activeQuestion, string code)
+        {
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.ActiveQuestionUpdate", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@ActiveQuestionNumber", SqlDbType.Int)).Value = activeQuestion;
+            sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = code;
+
+            SqlHelper.Execute(sqlCmd);
         }
 
         public static List<Answer> GetAnswers(int userID, int queryNumber, int number)
