@@ -60,32 +60,33 @@ namespace Querier.Controllers
                 return RedirectToAction(nameof(UserController.Index), "User");
             }
         }
-<<<<<<< HEAD
 
         [Authorize]
-        public IActionResult DisplayResults(int queryNumber, int questionNumber, List<string> resultList)
+        public IActionResult DisplayResults(int queryNumber, int questionNumber)
         {
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
-            var query = QueryOptions.Load(user, 0);
+            var query = QueryOptions.Load(user, 3);
+            DataManager.Question question = new Question();
 
-            var question = query.Questions[0];
-
-            resultList = new List<string>();
-            resultList.Add(question.Number.ToString());
-
-            foreach (var item in question.Answers)
+            foreach (DataManager.Question item in query.Questions)
             {
-                resultList.Add(item.ToString());
+                if(item != null)
+                {
+                    question = item;
+                }
+            }
+            if(question == null)
+            {
+                return RedirectToAction(nameof(UserController.Index), "User");
             }
 
-            return View("ResultsPage", resultList);
+            return View("DisplayResults", question);
         }
         public IActionResult QueryStart()
         {
             return View("QueryStartView");
         }
-=======
->>>>>>> origin/master
+
     }
 }

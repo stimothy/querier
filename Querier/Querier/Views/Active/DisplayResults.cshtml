@@ -1,14 +1,33 @@
-﻿
+﻿@model DataManager.Question;
 @{
-    ViewData["Title"] = "Display Results";
+    ViewData["Title"] = "Results";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Display Results</h2>
-
-
+<h2>Question @Model.Number Results</h2>
+<div class="container-fluid">
+<table>
+    <thead>
+        <tr>
+            <td>Number</td>
+            <td>Answer</td>
+            <td>Results</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var answer in Model.Answers)
+        {
+            <tr>
+                <td class="col-xs-4">@Html.DisplayFor(model => answer.Number)</td>
+                <td class="col-xs-4">@Html.DisplayFor(model => answer.Name)</td>
+                <td class="col-xs-4">@Html.DisplayFor(model => answer.Score)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+    </div>
 
 
 <hr/>
-<button class="btn btn-danger" title="delete">Delete Question</button>
+<button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuestion", "Query", new { queryID = Model.QueryNumber, questionNumber  = Model.Number})'">Delete</button>
 <button class="btn btn-default" title="add">Add Question</button>
