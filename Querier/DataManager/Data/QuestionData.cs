@@ -39,7 +39,7 @@ namespace DataManager
 
             DataTable dt = SqlHelper.TableExecute(sqlCmd);
 
-            if (dt == null) return null;
+            if (dt.Rows.Count == 0 || dt == null) return null;
             return new Question(dt.Rows[0]);
         }
 

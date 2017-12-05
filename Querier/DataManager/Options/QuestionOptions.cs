@@ -16,9 +16,13 @@ namespace DataManager
             QuestionData.Save(question);
         }
 
-        public static void AddAnswer(Question question)
+        public static void AddAnswer(Question question, int order = 0, string name = "")
         {
-            AnswerData.Add(question.UserID, question.QueryNumber, question.Number, question.Answers.Count + 1, "New Answer");
+            AnswerData.Add(question.UserID, 
+                            question.QueryNumber, 
+                            question.Number, 
+                            (order == 0) ? question.Answers.Count + 1 : order, 
+                            (name == "") ? "New Answer" : name);
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
         }
 
@@ -31,17 +35,23 @@ namespace DataManager
 
         public static void SetFirstActive(Query query)
         {
-            QuestionData.SetActive(1, query.Code);
+            try
+            {
+                int number = query.Questions[0].Number;
+                QuestionData.SetActive(number, query.Code);
+            }
+            catch(IndexOutOfRangeException ex)
+            { }
         }
-        public static void SetNextActive(Question currentQuestion)
+        public static void SetNextActive(Question currentQuestion, int number)
         {
-            QuestionData.SetActive(currentQuestion.Number + 1, currentQuestion.Code);
+            QuestionData.SetActive(number, currentQuestion.Code);
         }
         public static Question GetActive(int currentQuestionNumber, string code, bool hasAnswered)
         {
             Question activeQuestion = QuestionData.GetActive(code);
 
-            if (activeQuestion.Number == currentQuestionNumber)
+            if (activeQuestion != null && activeQuestion.Number == currentQuestionNumber)
                 activeQuestion.IsAnswered = hasAnswered;
 
             return activeQuestion;

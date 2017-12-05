@@ -27,15 +27,27 @@ namespace Querier.Controllers
             return View("ClientView", question);
         }
 
-        public IActionResult JoinQuery(string code)
+        public IActionResult JoinQuery(string code, Question question)
         {
-            Question placeHolder = new Question(code);
-            if (QueryOptions.ValidCode(code)){
-                return View("ClientView", placeHolder);
+
+            if (question != null)
+            {
+                question = QuestionOptions.GetActive(question.Number, code, question.IsAnswered);
+                if (question == null)
+                {
+                    question = new Question(code);
+                }
             }
             else
             {
-                return View("QueryClosed", placeHolder);
+                question = new Question(code);
+            }
+            if (QueryOptions.ValidCode(code)){
+                return View("ClientView", question);
+            }
+            else
+            {
+                return View("QueryClosed", question);
             }
             
         }
