@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using DataManager;
 using System.Linq;
+using System;
 
 namespace Querier.Controllers
 {
@@ -31,6 +32,8 @@ namespace Querier.Controllers
             {
                 var question = QuestionOptions.Load(query, query.Questions.First().Number);
 
+                QuestionOptions.SetFirstActive(query);
+
                 return View("LoadActiveQuestion", question);
             }
 
@@ -45,7 +48,21 @@ namespace Querier.Controllers
             var query = QueryOptions.Load(user, queryNumber);
             var question = QuestionOptions.Load(query, questionNumber);
 
-            QuestionOptions.SetNextActive(question);
+            int index = 0;
+
+            for (int i = 0; i < query.Questions.Count; ++i)
+            {
+                if (query.Questions[i].Number == question.Number)
+                {
+                    index = i;
+                }
+            }
+
+            try
+            {
+                QuestionOptions.SetNextActive(question, query.Questions[index + 1].Number);
+            }
+            catch (ArgumentOutOfRangeException ex) { }
 
             try
             {
