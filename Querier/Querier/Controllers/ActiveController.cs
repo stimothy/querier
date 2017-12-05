@@ -2,11 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using DataManager;
 using System.Linq;
-<<<<<<< HEAD
 using System.Collections.Generic;
-=======
 using System;
->>>>>>> origin/master
 
 namespace Querier.Controllers
 {
@@ -128,8 +125,9 @@ namespace Querier.Controllers
             {
                 return RedirectToAction(nameof(UserController.Index), "User");
             }
+            var q = QuestionOptions.Load(query, question.Number);
 
-            return View("DisplayResults", question);
+            return View("DisplayResults", q);
         }
         public IActionResult QueryStart()
         {
