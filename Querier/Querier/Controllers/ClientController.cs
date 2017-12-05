@@ -51,5 +51,20 @@ namespace Querier.Controllers
             }
             
         }
+
+        [HttpPost]
+        public IActionResult SelectAnswer(int queryNumber, int questionNumber, int number, string code)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryNumber);
+            var question = QuestionOptions.Load(query, questionNumber);
+            var answer = AnswerOptions.Load(question, number);
+
+            AnswerOptions.Select(answer);
+            question.IsAnswered = true;
+
+            return RedirectToAction("JoinQuery", code, question); 
+        }
     }
 }

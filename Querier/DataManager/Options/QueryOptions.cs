@@ -16,7 +16,7 @@ namespace DataManager
             QueryData.Save(query);
         }
 
-        public static void AddQuestion(Query query)
+        public static void AddQuestion(Query query, int order = 0)
         {
             QuestionData.Add(query.UserID, query.Number, "New Question");
             query.Questions = QueryData.GetQuestions(query.UserID, query.Number);
