@@ -4,7 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Question @Model.Number Results</h2>
+<h2>Question @Model.Order Results</h2>
+
+<button type="button" class="btn btn-primary" name="next" onclick="location.href='@Url.Action("LoadNextQuestion", "Active", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">>>></button>
+
 <div class="container-fluid">
 <table>
     <thead>
@@ -18,7 +21,7 @@
         @foreach (var answer in Model.Answers)
         {
             <tr>
-                <td class="col-xs-4">@Html.DisplayFor(model => answer.Number)</td>
+                <td class="col-xs-4">@Html.DisplayFor(model => answer.Order)</td>
                 <td class="col-xs-4">@Html.DisplayFor(model => answer.Name)</td>
                 <td class="col-xs-4">@Html.DisplayFor(model => answer.Score)</td>
             </tr>
@@ -29,5 +32,14 @@
 
 
 <hr/>
+@using (Html.BeginForm("InsertQuestion", "Active", FormMethod.Post, Model))
+{
+    @Html.HiddenFor(model => Model.QueryNumber)
+    @Html.HiddenFor(model => Model.Order)
+    <div class="form-group">
+        <input style="margin-top: 5px" class="btn btn-primary" type="submit" value="New Question" />
+        <input name="NewQuestionName" type="text" class="form-control" placeholder="New Question" style="vertical-align:bottom; width:300px; display:inline">
+    </div>
+
+}
 <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuestion", "Query", new { queryID = Model.QueryNumber, questionNumber  = Model.Number})'">Delete</button>
-<button class="btn btn-default" title="add">Add Question</button>

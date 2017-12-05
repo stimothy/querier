@@ -129,10 +129,25 @@ namespace Querier.Controllers
 
             return View("DisplayResults", q);
         }
+
         public IActionResult QueryStart()
         {
             return View("QueryStartView");
         }
 
+        [HttpPost]
+        public IActionResult InsertQuestion(int queryNumber, int Order, string NewQuestionName)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryNumber);
+
+            QueryOptions.AddQuestion(query,NewQuestionName,Order+1);
+
+            var questionNumber = query.Questions.Max(x => x.Number);
+            var question = QuestionOptions.Load(query, questionNumber);
+
+            return View("LoadActiveQuestion", question);
+        }
     }
 }
