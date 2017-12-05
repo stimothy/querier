@@ -32,6 +32,26 @@ namespace DataManager
             return new Question(dt.Rows[0]);
         }
 
+        public static Question GetActive(string activeCode)
+        {
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.ActiveQuestionGet", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = activeCode.ToLower();
+
+            DataTable dt = SqlHelper.TableExecute(sqlCmd);
+
+            if (dt.Rows.Count == 0 || dt == null) return null;
+            return new Question(dt.Rows[0]);
+        }
+
+        public static void SetActive(int activeQuestion, string code)
+        {
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.ActiveQuestionUpdate", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@ActiveQuestionNumber", SqlDbType.Int)).Value = activeQuestion;
+            sqlCmd.Parameters.Add(new SqlParameter("@Code", SqlDbType.VarChar)).Value = code;
+
+            SqlHelper.Execute(sqlCmd);
+        }
+
         public static List<Answer> GetAnswers(int userID, int queryNumber, int number)
         {
             List<Answer> Answers = new List<Answer>();

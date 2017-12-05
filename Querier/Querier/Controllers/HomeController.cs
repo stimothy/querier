@@ -24,6 +24,19 @@ namespace Querier.Controllers
             return View();
         }
         
+        [HttpPost]
+        public IActionResult JoinQuery(string qID)
+        {
+            if (qID != null)
+            {
+                return RedirectToAction("JoinQuery", "Client", new { code = qID });
+            }
+            else
+            {
+                return View("Index");
+            }
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

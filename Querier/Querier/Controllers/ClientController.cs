@@ -26,5 +26,30 @@ namespace Querier.Controllers
             Question question = QuestionOptions.Load(query, questionNumber);
             return View("ClientView", question);
         }
+
+        public IActionResult JoinQuery(string code, Question question)
+        {
+
+            if (question != null)
+            {
+                question = QuestionOptions.GetActive(question.Number, code, question.IsAnswered);
+                if (question == null)
+                {
+                    question = new Question(code);
+                }
+            }
+            else
+            {
+                question = new Question(code);
+            }
+            if (QueryOptions.ValidCode(code)){
+                return View("ClientView", question);
+            }
+            else
+            {
+                return View("QueryClosed", question);
+            }
+            
+        }
     }
 }

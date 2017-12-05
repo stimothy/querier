@@ -2,10 +2,24 @@
 @{
     ViewData["Title"] = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (Model.Number == 0)
+    {
+        <h2>You have joined query: @Html.DisplayFor(model => Model.Code)</h2>
+    }
+    else
+    {
+        <p>@Html.DisplayFor(model => Model.Code)</p>
+        <br/>
+    }
 }
 
-<h2>@ViewData["Title"]</h2>
-<hr/>
+<h2>
+    @ViewData["Title"]
+    <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
+</h2>
+<hr />
+
 <ol>
     @foreach(var item in Model.Answers)
     {
