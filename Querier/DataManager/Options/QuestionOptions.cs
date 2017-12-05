@@ -16,9 +16,13 @@ namespace DataManager
             QuestionData.Save(question);
         }
 
-        public static void AddAnswer(Question question)
+        public static void AddAnswer(Question question, int order = 0, string name = "")
         {
-            AnswerData.Add(question.UserID, question.QueryNumber, question.Number, question.Answers.Count + 1, "New Answer");
+            AnswerData.Add(question.UserID, 
+                            question.QueryNumber, 
+                            question.Number, 
+                            (order == 0) ? question.Answers.Count + 1 : order, 
+                            (name == "") ? "New Answer" : name);
             question.Answers = QuestionData.GetAnswers(question.UserID, question.QueryNumber, question.Number);
         }
 

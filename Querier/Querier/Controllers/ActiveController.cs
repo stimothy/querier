@@ -54,6 +54,19 @@ namespace Querier.Controllers
         }
 
         [Authorize]
+        public IActionResult AddAnswer(int queryNumber, int number, string answerName)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryNumber);
+            var question = QuestionOptions.Load(query, number);
+
+            QuestionOptions.AddAnswer(question, 0, answerName);
+
+            return RedirectToAction("LoadActiveQuery", new { queryID = queryNumber });
+        }
+
+        [Authorize]
         public IActionResult LoadNextQuestion(int queryNumber, int questionNumber)
         {
             var username = User.Identity.Name.ToString();

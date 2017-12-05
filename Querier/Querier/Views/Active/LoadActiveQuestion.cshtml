@@ -9,6 +9,16 @@
 <h2>@Model.Name</h2>
 <button type="button" class="btn btn-primary" name="next" onclick="location.href='@Url.Action("LoadNextQuestion", "Active", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">>>></button>
 
+@using (Html.BeginForm("AddAnswer", "Active", FormMethod.Post, Model))
+{
+    @Html.HiddenFor(model => Model.UserID)
+    @Html.HiddenFor(model => Model.QueryNumber)
+    @Html.HiddenFor(model => Model.Number)
+    <div class="form-group">
+        <input style="margin-top: 5px" class="btn btn-primary" type="submit" value="Add Answer"/>
+        <input name="AnswerName" type="text" class="form-control" placeholder="New Answer" style="vertical-align:bottom; width:300px; display:inline">
+    </div>
+}
 <hr />
 <ol>
     @foreach (var item in Model.Answers)
