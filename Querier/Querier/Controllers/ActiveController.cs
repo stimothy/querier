@@ -34,6 +34,8 @@ namespace Querier.Controllers
 
                 QuestionOptions.SetFirstActive(query);
 
+                question.Code = query.Code;
+
                 return View("LoadActiveQuestion", question);
             }
 
