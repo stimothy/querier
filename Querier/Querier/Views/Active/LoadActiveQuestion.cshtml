@@ -16,6 +16,9 @@
         <li><button type="button" class="btn btn-secondary">@Html.DisplayFor(model => item.Name)</button></li>
     }
 </ol>
+
+<hr/>
+<h6>Join with: <span style="color:mediumorchid">@Model.Code</span></h6>
 <script>
     var scheme = document.location.protocol == "https:" ? "wss" : "ws";
     var port = document.location.port ? (":" + document.location.port) : "";
