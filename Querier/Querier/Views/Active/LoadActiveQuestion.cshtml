@@ -13,7 +13,10 @@
 <ol>
     @foreach (var item in Model.Answers)
     {
-        <li><button type="button" class="btn btn-secondary">@Html.DisplayFor(model => item.Name)</button></li>
+        <li>
+            <button type="button" class="btn btn-secondary">@Html.DisplayFor(model => item.Name)</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteAnswer", "Active", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number, answerNumber = item.Number })'"> X </button>
+        </li>
     }
 </ol>
 

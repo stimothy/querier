@@ -41,6 +41,19 @@ namespace Querier.Controllers
         }
 
         [Authorize]
+        public IActionResult DeleteAnswer(int queryNumber, int questionNumber, int answerNumber)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryNumber);
+            var question = QuestionOptions.Load(query, questionNumber);
+
+            QuestionOptions.DeleteAnswer(question, answerNumber);
+            
+            return RedirectToAction("LoadActiveQuery", new { queryID = queryNumber });
+        }
+
+        [Authorize]
         public IActionResult LoadNextQuestion(int queryNumber, int questionNumber)
         {
             var username = User.Identity.Name.ToString();
