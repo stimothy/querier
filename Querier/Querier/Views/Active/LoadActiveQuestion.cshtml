@@ -7,7 +7,7 @@
 }
 
 <h2>@Model.Name</h2>
-<button type="button" class="btn btn-primary" name="next" onclick="location.href='@Url.Action("LoadNextQuestion", "Active", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">>>></button>
+<button type="button" class="btn btn-primary" name="next" onclick="location.href='@Url.Action("DisplayResults", "Active", new { queryNumber = Model.QueryNumber, questionNumber = Model.Number })'">>>></button>
 
 @using (Html.BeginForm("AddAnswer", "Active", FormMethod.Post, Model))
 {
