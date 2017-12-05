@@ -27,7 +27,14 @@ namespace Querier.Controllers
         [HttpPost]
         public IActionResult JoinQuery(string qID)
         {
-            return RedirectToAction("JoinQuery", "Client", new { code = qID });
+            if (qID != null)
+            {
+                return RedirectToAction("JoinQuery", "Client", new { code = qID });
+            }
+            else
+            {
+                return View("Index");
+            }
         }
 
         public IActionResult Error()
