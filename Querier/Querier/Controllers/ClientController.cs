@@ -68,13 +68,21 @@ namespace Querier.Controllers
 
         [HttpPost]
         public IActionResult SelectAnswer(int number, string code)
-        {
+       {
             var question = QuestionOptions.GetActive(number, code, true);
             var answer = AnswerOptions.Load(question, number);
             AnswerOptions.Select(answer);
             question.IsAnswered = true;
 
-            return RedirectToAction("JoinQuery", "Client", new { code, question });
+            //return RedirectToAction("JoinQuery", "Client", new { code, question });
+            if (QueryOptions.ValidCode(code))
+            {
+                return View("ClientView", question);
+            }
+            else
+            {
+                return View("QueryClosed", question);
+            }
         }
     }
 }

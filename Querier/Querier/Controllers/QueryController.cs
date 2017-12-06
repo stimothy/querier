@@ -44,6 +44,18 @@ namespace Querier.Controllers
         }
 
         [Authorize]
+        public IActionResult DeleteQuestionLive(int queryID, int questionNumber)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryID);
+
+            QueryOptions.DeleteQuestion(query, questionNumber);
+
+            return RedirectToAction("LoadNextQuestion", "Active", new { queryID = queryID, questionNumber = questionNumber });
+        }
+
+        [Authorize]
         public IActionResult InsertQuestion(int queryID)
         {
             var username = User.Identity.Name.ToString();

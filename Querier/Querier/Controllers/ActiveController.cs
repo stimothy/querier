@@ -72,7 +72,7 @@ namespace Querier.Controllers
         }
 
         [Authorize]
-        public IActionResult LoadNextQuestion(int queryNumber, int questionNumber)
+        public IActionResult LoadNextQuestion(int queryNumber, int questionNumber, bool fromDelete = false)
         {
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
@@ -91,7 +91,10 @@ namespace Querier.Controllers
 
             try
             {
-                QuestionOptions.SetNextActive(question, query.Questions[index + 1].Number);
+                if (fromDelete)
+                    QuestionOptions.SetNextActive(question, query.Questions[index].Number);
+                else
+                    QuestionOptions.SetNextActive(question, query.Questions[index + 1].Number);
             }
             catch (ArgumentOutOfRangeException ex) { }
 
