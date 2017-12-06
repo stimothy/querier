@@ -33,7 +33,16 @@
                         <th>@query.Name</th>
                         <th>
                             <button type="button" class="btn btn-info" name="edit" onclick="location.href='@Url.Action("ManageQuery", "Query", new { queryID = query.Number })'">Edit</button>
-                            <button type="button" class="btn btn-warning" name="publish" onclick="location.href='@Url.Action("LoadQueryStartPage", "Active", new { queryID = query.Number })'">Publish</button>
+                            
+                            @if (String.IsNullOrWhiteSpace(query.Code))
+                            {
+                                <button type="button" class="btn btn-warning" name="publish" onclick="location.href='@Url.Action("LoadQueryStartPage", "Active", new { queryID = query.Number })'">Publish</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-success" name="published" onclick="location.href='@Url.Action("CloseQuery", "Active", new { queryID = query.Number })'">Published</button>
+                            }
+
                             <button type="button" class="btn btn-danger" name="delete" onclick="location.href='@Url.Action("DeleteQuery", "User", new { userID = Model.UserID, queryNumber  = query.Number})'">Delete</button>
                         </th>
                     </tr>

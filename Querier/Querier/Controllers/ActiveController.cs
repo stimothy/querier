@@ -19,6 +19,8 @@ namespace Querier.Controllers
             QueryOptions.Open(query);
             query = QueryOptions.Load(user, queryID); // reload to get code
 
+            QueryOptions.ResetScores(query);
+
             return View("QueryStartView", query);
         }
 
@@ -160,6 +162,18 @@ namespace Querier.Controllers
             var question = QuestionOptions.Load(query, questionNumber);
 
             return View("LoadActiveQuestion", question);
+        }
+
+        [Authorize]
+        public IActionResult CloseQuery(int queryID)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryID);
+            
+            QueryOptions.Close(query);
+
+            return RedirectToAction(nameof(UserController.Index), "User");
         }
     }
 }
