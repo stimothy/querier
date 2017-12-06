@@ -12,6 +12,7 @@ namespace DataManager
         public int Score { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
+        public int Votes { get; set; }
         public Answer()
         {
             UserID = 0;
@@ -19,6 +20,7 @@ namespace DataManager
             QuestionNumber = 0;
             Number = 0;
             Order = 0;
+            Votes = 0;
         }
 
         public Answer(DataRow dr)
@@ -29,6 +31,7 @@ namespace DataManager
             if (dr["name"] != null) Name = dr["name"].ToString();
             if (dr["score"] != null) Score = int.Parse(dr["score"].ToString());
             if (dr["Ordinality"] != null) Order = int.Parse(dr["Ordinality"].ToString());
+            if (dr["voteCount"] != null) Votes = int.Parse(dr["Ordinality"].ToString());
 
             if (IsFullLoad)
             {
