@@ -29,7 +29,6 @@ namespace Querier.Controllers
 
         public IActionResult JoinQuery(string code, Question question)
         {
-
             if (question != null)
             {
                 question = QuestionOptions.GetActive(question.Number, code, question.IsAnswered);
@@ -42,29 +41,40 @@ namespace Querier.Controllers
             {
                 question = new Question(code);
             }
+
             if (QueryOptions.ValidCode(code)){
                 return View("ClientView", question);
             }
             else
             {
                 return View("QueryClosed", question);
-            }
-            
+            }            
         }
 
-        [HttpPost]
-        public IActionResult SelectAnswer(int queryNumber, int questionNumber, int number, string code)
-        {
-            var username = User.Identity.Name.ToString();
-            var user = UserOptions.GetUser(username);
-            var query = QueryOptions.Load(user, queryNumber);
-            var question = QuestionOptions.Load(query, questionNumber);
-            var answer = AnswerOptions.Load(question, number);
+        //[HttpPost]
+        //public IActionResult SelectAnswer(int queryNumber, int questionNumber, int number, string code)
+        //{
+        //    var username = User.Identity.Name.ToString();
+        //    var user = UserOptions.GetUser(username);
+        //    var query = QueryOptions.Load(user, queryNumber);
+        //    var question = QuestionOptions.Load(query, questionNumber);
+        //    var answer = AnswerOptions.Load(question, number);
 
+        //    AnswerOptions.Select(answer);
+        //    question.IsAnswered = true;
+
+        //    return RedirectToAction("JoinQuery", "Client", new { code, question }); 
+        //}
+
+        [HttpPost]
+        public IActionResult SelectAnswer(int number, string code)
+        {
+            var question = QuestionOptions.GetActive(number, code, true);
+            var answer = AnswerOptions.Load(question, number);
             AnswerOptions.Select(answer);
             question.IsAnswered = true;
 
-            return RedirectToAction("JoinQuery", "Client", new { code, question }); 
+            return RedirectToAction("JoinQuery", "Client", new { code, question });
         }
     }
 }

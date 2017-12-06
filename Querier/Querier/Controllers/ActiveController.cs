@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using DataManager;
 using System.Linq;
+using System.Collections.Generic;
 using System;
 
 namespace Querier.Controllers
@@ -17,6 +18,8 @@ namespace Querier.Controllers
 
             QueryOptions.Open(query);
             query = QueryOptions.Load(user, queryID); // reload to get code
+
+            QueryOptions.ResetScores(query);
 
             return View("QueryStartView", query);
         }
@@ -103,6 +106,74 @@ namespace Querier.Controllers
                 QueryOptions.Close(query);
                 return RedirectToAction(nameof(UserController.Index), "User");
             }
+        }
+
+        [Authorize]
+        public IActionResult DisplayResults(int queryNumber, int questionNumber)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryNumber);
+
+            if (query != null)
+            {
+                var question = QuestionOptions.Load(query, questionNumber);
+
+                /*var username = User.Identity.Name.ToString();
+                var user = UserOptions.GetUser(username);
+                var query = QueryOptions.Load(user, 3);
+                DataManager.Question question = new Question();
+                */
+
+                /*foreach (DataManager.Question item in query.Questions)
+                {
+                    if(item != null)
+                    {
+                        question = item;
+                    }
+                }*/
+                if (question == null)
+                {
+                    return RedirectToAction(nameof(UserController.Index), "User");
+                }
+
+                return View("DisplayResults", question);
+            }
+            //var q = QuestionOptions.Load(query, question.Number);
+
+            return RedirectToAction(nameof(UserController.Index), "User");
+        }
+
+        public IActionResult QueryStart()
+        {
+            return View("QueryStartView");
+        }
+
+        [HttpPost]
+        public IActionResult InsertQuestion(int queryNumber, int Order, string NewQuestionName)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryNumber);
+
+            QueryOptions.AddQuestion(query,NewQuestionName,Order+1);
+
+            var questionNumber = query.Questions.Max(x => x.Number);
+            var question = QuestionOptions.Load(query, questionNumber);
+
+            return View("LoadActiveQuestion", question);
+        }
+
+        [Authorize]
+        public IActionResult CloseQuery(int queryID)
+        {
+            var username = User.Identity.Name.ToString();
+            var user = UserOptions.GetUser(username);
+            var query = QueryOptions.Load(user, queryID);
+            
+            QueryOptions.Close(query);
+
+            return RedirectToAction(nameof(UserController.Index), "User");
         }
     }
 }

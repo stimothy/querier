@@ -24,9 +24,15 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = number;
 
-            DataTable dt = SqlHelper.TableExecute(sqlCmd);
+            try
+            {
+                DataTable dt = SqlHelper.TableExecute(sqlCmd);
 
-            return new Query(dt.Rows[0]);
+                return new Query(dt.Rows[0]);
+            }
+            catch (IndexOutOfRangeException) { }
+
+            return null;
         }
 
         public static List<Question> GetQuestions(int userID, int number)
@@ -47,6 +53,15 @@ namespace DataManager
             }
 
             return Questions;
+        }
+
+        internal static void Reset(Query query)
+        {
+            SqlCommand sqlCmd = new SqlCommand("Querier.dbo.QueryResetScore", SqlHelper.GetConnection());
+            sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = query.UserID;
+            sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = query.Number;
+
+            SqlHelper.Execute(sqlCmd);
         }
 
         public static void Save(Query query)

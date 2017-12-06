@@ -47,6 +47,7 @@ namespace DataManager
         {
             QuestionData.SetActive(number, currentQuestion.Code);
         }
+
         public static Question GetActive(int currentQuestionNumber, string code, bool hasAnswered)
         {
             Question activeQuestion = QuestionData.GetActive(code);
