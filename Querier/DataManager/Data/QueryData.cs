@@ -45,7 +45,7 @@ namespace DataManager
 
             DataTable dt = SqlHelper.TableExecute(sqlCmd);
             DataView dv = dt.DefaultView;
-            dv.Sort = "Ordinality ASC";
+            dv.Sort = "ordinality ASC";
 
             foreach (DataRow dr in dv.Table.Rows)
             {
