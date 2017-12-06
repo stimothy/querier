@@ -88,3 +88,13 @@
         }
     }
 }
+
+.answer-btn{
+    color:whitesmoke;
+    background-color:lightseagreen;
+}
+
+.answer-btn:visited{
+    color:whitesmoke;
+    background-color:darkblue;
+}
