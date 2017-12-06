@@ -68,7 +68,7 @@ namespace Querier.Controllers
 
         [HttpPost]
         public IActionResult SelectAnswer(int number, string code)
-        {
+       {
             var question = QuestionOptions.GetActive(number, code, true);
             var answer = AnswerOptions.Load(question, number);
             AnswerOptions.Select(answer);
