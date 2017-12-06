@@ -111,23 +111,35 @@ namespace Querier.Controllers
         {
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
-            var query = QueryOptions.Load(user, 3);
-            DataManager.Question question = new Question();
+            var query = QueryOptions.Load(user, queryNumber);
 
-            foreach (DataManager.Question item in query.Questions)
+            if (query != null)
             {
-                if(item != null)
+                var question = QuestionOptions.Load(query, questionNumber);
+
+                /*var username = User.Identity.Name.ToString();
+                var user = UserOptions.GetUser(username);
+                var query = QueryOptions.Load(user, 3);
+                DataManager.Question question = new Question();
+                */
+
+                /*foreach (DataManager.Question item in query.Questions)
                 {
-                    question = item;
+                    if(item != null)
+                    {
+                        question = item;
+                    }
+                }*/
+                if (question == null)
+                {
+                    return RedirectToAction(nameof(UserController.Index), "User");
                 }
-            }
-            if(question == null)
-            {
-                return RedirectToAction(nameof(UserController.Index), "User");
-            }
-            var q = QuestionOptions.Load(query, question.Number);
 
-            return View("DisplayResults", q);
+                return View("DisplayResults", question);
+            }
+            //var q = QuestionOptions.Load(query, question.Number);
+
+            return RedirectToAction(nameof(UserController.Index), "User");
         }
 
         public IActionResult QueryStart()

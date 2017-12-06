@@ -24,9 +24,15 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@UserID", SqlDbType.Int)).Value = userID;
             sqlCmd.Parameters.Add(new SqlParameter("@QueryNumber", SqlDbType.Int)).Value = number;
 
-            DataTable dt = SqlHelper.TableExecute(sqlCmd);
+            try
+            {
+                DataTable dt = SqlHelper.TableExecute(sqlCmd);
 
-            return new Query(dt.Rows[0]);
+                return new Query(dt.Rows[0]);
+            }
+            catch (IndexOutOfRangeException) { }
+
+            return null;
         }
 
         public static List<Question> GetQuestions(int userID, int number)
