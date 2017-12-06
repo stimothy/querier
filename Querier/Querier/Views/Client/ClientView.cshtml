@@ -5,19 +5,22 @@
 
     if (Model.Number == 0)
     {
-        <h2>You have joined query: @Html.DisplayFor(model => Model.Code)</h2>
+        <h2>
+            You have joined query: <span style="color:mediumorchid"> @Model.Code </span>
+            <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
+        </h2>
     }
     else
     {
         <p>@Html.DisplayFor(model => Model.Code)</p>
         <br/>
+        <h2>
+            @ViewData["Title"]
+            <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
+        </h2>
     }
 }
-
-<h2>
-    @ViewData["Title"]
-    <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
-</h2>
+5
 <hr />
 
 <ol>
@@ -30,7 +33,7 @@
                     @Html.Hidden("questionNumber", Model.Number, new { @id = "questionNumber" })*@
                     @Html.HiddenFor(model => Model.Code)
                     @Html.Hidden("number", item.Number, new { @id = "number" })
-                    <input class="btn answer-btn" type="submit" value="@Html.DisplayFor(model => item.Name)"/>
+                    <input class="btn answer-btn" disabled ="@Model.IsAnswered" type="submit" value="@Html.DisplayFor(model => item.Name)"/>
             }
         </li>
     }

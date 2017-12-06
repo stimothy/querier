@@ -74,7 +74,15 @@ namespace Querier.Controllers
             AnswerOptions.Select(answer);
             question.IsAnswered = true;
 
-            return RedirectToAction("JoinQuery", "Client", new { code, question });
+            //return RedirectToAction("JoinQuery", "Client", new { code, question });
+            if (QueryOptions.ValidCode(code))
+            {
+                return View("ClientView", question);
+            }
+            else
+            {
+                return View("QueryClosed", question);
+            }
         }
     }
 }
