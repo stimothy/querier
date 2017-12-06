@@ -44,5 +44,10 @@ namespace DataManager
         {
             QueryData.Close(query);
         }
+
+        public static void ResetScores(Query query)
+        {
+            QueryData.Reset(query);
+        }
     }
 }

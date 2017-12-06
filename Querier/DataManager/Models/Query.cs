@@ -29,12 +29,12 @@ namespace DataManager
 
             if (dr["number"] != null) Number = int.Parse(dr["number"].ToString());
             if (dr["name"] != null) Name = dr["name"].ToString();
-            
+            if (dr["activeCode"] != null) Code = dr["activeCode"].ToString();
+
             if (IsFullLoad)
             {
                 if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
-                if (dr["activeCode"] != null) Code = dr["activeCode"].ToString();
-
+                
                 Questions = QueryData.GetQuestions(UserID, Number); 
             }
         }

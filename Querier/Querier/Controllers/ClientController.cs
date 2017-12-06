@@ -29,7 +29,6 @@ namespace Querier.Controllers
 
         public IActionResult JoinQuery(string code, Question question)
         {
-
             if (question != null)
             {
                 question = QuestionOptions.GetActive(question.Number, code, question.IsAnswered);
@@ -42,6 +41,7 @@ namespace Querier.Controllers
             {
                 question = new Question(code);
             }
+
             if (QueryOptions.ValidCode(code)){
                 return View("ClientView", question);
             }
