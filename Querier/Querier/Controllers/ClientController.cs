@@ -48,23 +48,33 @@ namespace Querier.Controllers
             else
             {
                 return View("QueryClosed", question);
-            }
-            
+            }            
         }
 
-        [HttpPost]
-        public IActionResult SelectAnswer(int queryNumber, int questionNumber, int number, string code)
-        {
-            var username = User.Identity.Name.ToString();
-            var user = UserOptions.GetUser(username);
-            var query = QueryOptions.Load(user, queryNumber);
-            var question = QuestionOptions.Load(query, questionNumber);
-            var answer = AnswerOptions.Load(question, number);
+        //[HttpPost]
+        //public IActionResult SelectAnswer(int queryNumber, int questionNumber, int number, string code)
+        //{
+        //    var username = User.Identity.Name.ToString();
+        //    var user = UserOptions.GetUser(username);
+        //    var query = QueryOptions.Load(user, queryNumber);
+        //    var question = QuestionOptions.Load(query, questionNumber);
+        //    var answer = AnswerOptions.Load(question, number);
 
+        //    AnswerOptions.Select(answer);
+        //    question.IsAnswered = true;
+
+        //    return RedirectToAction("JoinQuery", "Client", new { code, question }); 
+        //}
+
+        [HttpPost]
+        public IActionResult SelectAnswer(int number, string code)
+        {
+            var question = QuestionOptions.GetActive(number, code, true);
+            var answer = AnswerOptions.Load(question, number);
             AnswerOptions.Select(answer);
             question.IsAnswered = true;
 
-            return RedirectToAction("JoinQuery", "Client", new { code, question }); 
+            return RedirectToAction("JoinQuery", "Client", new { code, question });
         }
     }
 }

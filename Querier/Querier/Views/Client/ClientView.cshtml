@@ -26,8 +26,8 @@
         <li>
             @using (Html.BeginForm("SelectAnswer", "Client", FormMethod.Post, Model))
             {
-                    @Html.HiddenFor(model => Model.QueryNumber)
-                    @Html.Hidden("questionNumber", Model.Number, new { @id = "questionNumber" })
+                    @*@Html.HiddenFor(model => Model.QueryNumber)
+                    @Html.Hidden("questionNumber", Model.Number, new { @id = "questionNumber" })*@
                     @Html.HiddenFor(model => Model.Code)
                     @Html.Hidden("number", item.Number, new { @id = "number" })
                     <input class="btn answer-btn" type="submit" value="@Html.DisplayFor(model => item.Name)"/>
