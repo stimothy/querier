@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Linq;
 
 namespace DataManager
 {
@@ -35,7 +36,8 @@ namespace DataManager
             {
                 if (dr["userID"] != null) UserID = int.Parse(dr["UserID"].ToString());
                 
-                Questions = QueryData.GetQuestions(UserID, Number); 
+                Questions = QueryData.GetQuestions(UserID, Number);
+                Questions = Questions.OrderBy(x => x.Order).ToList();
             }
         }
 
