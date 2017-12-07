@@ -7,7 +7,7 @@
     {
         <h2>
             You have joined query: <span style="color:mediumorchid"> @Model.Code </span>
-            <button type="button" class="btn btn-primary pull-right" name="update" onclick="@{Model.IsAnswered = false;} location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
+            <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
 </h2>
                 }
                 else
