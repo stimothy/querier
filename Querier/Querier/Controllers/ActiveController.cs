@@ -15,9 +15,11 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryID);
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
 
             QueryOptions.Open(query);
             query = QueryOptions.Load(user, queryID); // reload to get code
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
 
             QueryOptions.ResetScores(query);
 
@@ -30,10 +32,12 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryID);
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
 
             if (query.Questions.Count > 0)
             {
                 var question = QuestionOptions.Load(query, query.Questions.First().Number);
+                question.Answers = question.Answers.OrderBy(a => a.Order).ToList();
 
                 QuestionOptions.SetFirstActive(query);
 
@@ -51,7 +55,9 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryNumber);
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
             var question = QuestionOptions.Load(query, questionNumber);
+            question.Answers = question.Answers.OrderBy(a => a.Order).ToList();
 
             QuestionOptions.DeleteAnswer(question, answerNumber);
             
@@ -64,7 +70,9 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryNumber);
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
             var question = QuestionOptions.Load(query, number);
+            question.Answers = question.Answers.OrderBy(a => a.Order).ToList();
 
             QuestionOptions.AddAnswer(question, 0, answerName);
 
@@ -77,7 +85,9 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryNumber);
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
             var question = QuestionOptions.Load(query, questionNumber);
+            question.Answers = question.Answers.OrderBy(a => a.Order).ToList();
 
             int index = 0;
 
@@ -100,8 +110,10 @@ namespace Querier.Controllers
 
             try
             {
-                var nextQuestionNumber = query.Questions.First(x => x.Number > questionNumber).Number;
-                var nextQuestion = QuestionOptions.Load(query, nextQuestionNumber);
+                //var nextQuestionNumber = query.Questions.First(x => x.Number > questionNumber).Number;
+                //var nextQuestion = QuestionOptions.Load(query, nextQuestionNumber);
+                var nextQuestion = QuestionOptions.GetActive(query.Questions[index + 1].Number, query.Code, false);
+                question.Answers = question.Answers.OrderBy(a => a.Order).ToList();
                 return View("LoadActiveQuestion", nextQuestion);
             }
             catch
@@ -117,10 +129,12 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryNumber);
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
 
             if (query != null)
             {
                 var question = QuestionOptions.Load(query, questionNumber);
+                question.Answers = question.Answers.OrderBy(a => a.Order).ToList();
 
                 /*var username = User.Identity.Name.ToString();
                 var user = UserOptions.GetUser(username);
@@ -143,6 +157,7 @@ namespace Querier.Controllers
                 return View("DisplayResults", question);
             }
             //var q = QuestionOptions.Load(query, question.Number);
+            //question.Answers = question.Answers.OrderBy(a => a.Order).ToList();
 
             return RedirectToAction(nameof(UserController.Index), "User");
         }
@@ -158,11 +173,13 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryNumber);
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
 
             QueryOptions.AddQuestion(query,NewQuestionName,Order+1);
 
             var questionNumber = query.Questions.Max(x => x.Number);
             var question = QuestionOptions.Load(query, questionNumber);
+            question.Answers = question.Answers.OrderBy(a => a.Order).ToList();
 
             return View("LoadActiveQuestion", question);
         }
@@ -173,7 +190,8 @@ namespace Querier.Controllers
             var username = User.Identity.Name.ToString();
             var user = UserOptions.GetUser(username);
             var query = QueryOptions.Load(user, queryID);
-            
+            query.Questions = query.Questions.OrderBy(q => q.Order).ToList();
+
             QueryOptions.Close(query);
 
             return RedirectToAction(nameof(UserController.Index), "User");
