@@ -27,11 +27,11 @@ namespace Querier.Controllers
             return View("ClientView", question);
         }
 
-        public IActionResult JoinQuery(string code, Question question)
+        public IActionResult JoinQuery(string code, Question question, int Number)
         {
             if (question != null)
             {
-                question = QuestionOptions.GetActive(question.Number, code, question.IsAnswered);
+                question = QuestionOptions.GetActive(Number, code, question.IsAnswered);
                 if (question == null)
                 {
                     question = new Question(code);

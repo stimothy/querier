@@ -7,7 +7,7 @@
     {
         <h2>
             You have joined query: <span style="color:mediumorchid"> @Model.Code </span>
-            <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
+            <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model, Model.Number })'">Update</button>
 </h2>
                 }
                 else
@@ -16,7 +16,7 @@
         <br />
         <h2>
             @ViewData["Title"]
-            <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model })'">Update</button>
+            <button type="button" class="btn btn-primary pull-right" name="update" onclick="location.href='@Url.Action("JoinQuery", "Client", new { Model.Code, Model, Model.Number })'">Update</button>
 </h2>
     }
 }

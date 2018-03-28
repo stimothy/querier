@@ -27,7 +27,7 @@ namespace DataManager
             sqlCmd.Parameters.Add(new SqlParameter("@AnswerNumber", SqlDbType.Int)).Value = number;
 
             DataTable dt = SqlHelper.TableExecute(sqlCmd);
-
+            
             return new Answer(dt.Rows[0]);
         }
 
